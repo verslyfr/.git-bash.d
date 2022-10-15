@@ -1,0 +1,13 @@
+* .git-bash.d
+
+My bash configuration for git on Windows
+
+* Installation
+
+Just clone the repository and in .bash_profile in the $HOME directory add
+
+#+begin_src bash
+if [ -f ~/.git-bash.d/.bashrc]; then . ~/.git-bash.d/.bashrc; fi
+#+end_src
+
+
