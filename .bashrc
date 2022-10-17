@@ -26,6 +26,7 @@ set -o ignoreeof
 #set -o xtrace                   # useful for debugging
 
 #### Enable options:
+shopt -s autocd                 # switch to directory if only path given
 shopt -s cdspell
 shopt -s cdable_vars
 shopt -s checkhash
