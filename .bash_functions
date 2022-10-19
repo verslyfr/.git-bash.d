@@ -141,3 +141,27 @@ function lh () {
 }
 
 
+### git functions
+#### git-ignore-aliases
+function git-ignore-aliases () {
+    if [ ! -f ".bash_aliases" ]; then
+        echo -e "${red}Need to be in the .git-bash.d folder.${nc}"
+        return 5
+    fi
+
+    ## Tell git to ignore the .bash_aliases file
+    echo -e "${blue}Ignoring changes to .bash_aliases in this repository.${nc}"
+    git update-index --verbose --assume-unchanged .bash_aliases
+}
+
+#### git-track-aliases
+function git-track-aliases () {
+    if [ ! -f ".bash_aliases" ]; then
+        echo -e "${red}Need to be in the .git-bash.d folder.${nc}"
+        return 5
+    fi
+    ## Tell git to track the .bash_aliases file
+    echo -e "${blue}Tracking changes to .bash_aliases in this repository.${nc}"
+    git update-index --verbose --no-assume-unchanged .bash_aliases
+    
+}
