@@ -71,7 +71,7 @@ function alias-add() {
     if [ -z "$1" ] ; then
         echo -e alias-add will add the alias, ${blue}\$1${nc}, to the end of the ${blue}$ALIAS_FILE${nc} file
     else
-    echo alias $(alias $1) >> $ALIAS_FILE
+    echo $(alias $1) >> $ALIAS_FILE
     fi
 }
 
@@ -84,7 +84,7 @@ function alias-pwd() {
         echo -e alias-pwd will create a new global alias, ${blue}"\$1"${nc}, for the changing the current directory, ${blue}`pwd`${nc}
     else
         declare -g $1="$(pwd)"
-        echo $1="$(pwd)" >> ${ALIAS_FILE}
+        echo $1="'$(pwd)'" >> ${ALIAS_FILE}
         echo Made global alias, $1, for "$(pwd)"
     fi
 }
