@@ -28,12 +28,14 @@ set -o ignoreeof
 #### Enable options:
 shopt -s autocd                 # switch to directory if only path given
 shopt -s cdspell
-shopt -s cdable_vars
+shopt -s cdable_vars            # "cd var" will use the value of variable, var, as the
+                                # directory
 shopt -s checkhash
 shopt -s checkwinsize
 # shopt -s mailwarn
 # shopt -s sourcepath
 shopt -s no_empty_cmd_completion  # bash>=2.04 only
+shopt -s nocaseglob             # match file names in a case-insensitive manner
 shopt -s cmdhist
 shopt -s histappend histreedit histverify
 shopt -s extglob                # necessary for programmable completion
@@ -85,3 +87,17 @@ function kill-emacs() {
 if [ -f ${BASHRC_PATH}/.bash_functions  ] ; then . ${BASHRC_PATH}/.bash_functions; fi
 if [ -f ${BASHRC_PATH}/.bash_aliases  ] ; then . ${BASHRC_PATH}/.bash_aliases; fi
 
+if [ "" == "${INSIDE_EMACS}" ]
+then
+    echo "Loading fzf completions if they exist in ~/.local/bin"
+    if [ -f ${HOME}/.local/bin/fzf_completion.bash ]; then . ${HOME}/.local/bin/fzf_completion.bash; fi
+    if [ -f ${HOME}/.local/bin/fzf_keybindings.bash ]; then . ${HOME}/.local/bin/fzf_keybindings.bash; fi
+    if command -v fd &> /dev/null
+    then
+        export FZF_CTRL_T_COMMAND='fd --hidden --no-ignore'
+        export FZF_ALT_C_COMMAND='fd --hidden --no-ignore --type d'
+    fi
+    
+else
+    echo "Not loading fzf completions because in emacs."
+fi
