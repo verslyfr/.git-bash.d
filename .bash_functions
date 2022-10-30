@@ -141,6 +141,27 @@ function lh () {
 }
 
 
+### fzf functions for fd
+# To use custom commands instead of find, override _fzf_compgen_{path,dir}
+if ! declare -f _fzf_compgen_path > /dev/null; then
+  _fzf_compgen_path() {
+    echo "$1"
+    command fd --type d --type f --type l --exclude .git --exclude AppData --exclude env --exclude .env --hidden 
+    # command find -L "$1" \
+    #   -name .git -prune -o -name .hg -prune -o -name .svn -prune -o \( -type d -o -type f -o -type l \) \
+    #   -a -not -path "$1" -print 2> /dev/null | sed 's@^\./@@'
+  }
+fi
+
+if ! declare -f _fzf_compgen_dir > /dev/null; then
+  _fzf_compgen_dir() {
+    command fd --type d --exclude .git --exclude env --exclude AppData --exclude .env --hidden 
+    # command find -L "$1" \
+    #   -name .git -prune -o -name .hg -prune -o -name .svn -prune -o -type d \
+    #   -a -not -path "$1" -print 2> /dev/null | sed 's@^\./@@'
+  }
+fi
+
 ### git functions
 #### git-ignore-aliases
 function git-ignore-aliases () {
