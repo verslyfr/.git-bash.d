@@ -90,13 +90,13 @@ if [ -f ${BASHRC_PATH}/.bash_aliases  ] ; then . ${BASHRC_PATH}/.bash_aliases; f
 if [ "" == "${INSIDE_EMACS}" ]
 then
     echo "Loading fzf completions if they exist in ~/.local/bin"
-    if [ -f ${HOME}/.local/bin/fzf_completion.bash ]; then . ${HOME}/.local/bin/fzf_completion.bash; fi
-    if [ -f ${HOME}/.local/bin/fzf_keybindings.bash ]; then . ${HOME}/.local/bin/fzf_keybindings.bash; fi
     if command -v fd &> /dev/null
     then
         export FZF_CTRL_T_COMMAND="fd . $HOME"
         export FZF_ALT_C_COMMAND="fd --type d . $HOME"
     fi
+    if [ -f ${HOME}/.local/bin/fzf_completion.bash ]; then . ${HOME}/.local/bin/fzf_completion.bash; fi
+    if [ -f ${HOME}/.local/bin/fzf_keybindings.bash ]; then . ${HOME}/.local/bin/fzf_keybindings.bash; fi
     
 else
     echo "Not loading fzf completions because in emacs."
