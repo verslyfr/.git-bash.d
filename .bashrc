@@ -93,7 +93,7 @@ then
     if command -v fd &> /dev/null
     then
         export FZF_CTRL_T_COMMAND="fd . $HOME"
-        export FZF_ALT_C_COMMAND="fd --type d . $HOME"
+        export FZF_ALT_C_COMMAND="fd -t d . $HOME"
     fi
     if [ -f ${HOME}/.local/bin/fzf_completion.bash ]; then . ${HOME}/.local/bin/fzf_completion.bash; fi
     if [ -f ${HOME}/.local/bin/fzf_keybindings.bash ]; then . ${HOME}/.local/bin/fzf_keybindings.bash; fi
