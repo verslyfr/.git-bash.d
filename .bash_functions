@@ -128,6 +128,17 @@ function color-256() {
     done
 }
 
+### grab windows file path
+function wf {
+    if [ ! -f "$1" ]
+    then
+        echo -e "Did not find the file, \"$1\". Unable to put on the clipboard."
+        return
+    fi
+    echo "Capturing \"$(realpath "$1")\" on the clipboard."
+    echo "$(cygpath -w "$(realpath "$1")")" | clip
+}
+
 ### ls functions
 #### lh
 function lh () {
