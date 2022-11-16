@@ -139,7 +139,7 @@ function wf {
     echo "$(cygpath -w "$(realpath "$1")")" | clip
 }
 
-function start ()
+function startwin ()
 {
     filepath="$1"
     [ "" == "$1" ] && filepath="."
