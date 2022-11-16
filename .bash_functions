@@ -128,7 +128,7 @@ function color-256() {
     done
 }
 
-### grab windows file path
+### improve integration with windows a little
 function wf {
     if [ ! -f "$1" ]
     then
@@ -137,6 +137,20 @@ function wf {
     fi
     echo "Capturing \"$(realpath "$1")\" on the clipboard."
     echo "$(cygpath -w "$(realpath "$1")")" | clip
+}
+
+function start ()
+{
+    filepath="$1"
+    [ "" == "$1" ] && filepath="."
+    
+    if [ ! -e "${filepath}" ]
+    then
+        echo "  Did not find the file, \"$filepath\". Unable to continue."
+        return
+    fi
+    echo "  Opening \"$(realpath "${filepath}")\" using explorer.exe."
+    explorer.exe "$(cygpath -w "$(realpath "${filepath}")")"
 }
 
 ### ls functions
