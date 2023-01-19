@@ -81,7 +81,7 @@ export EDITOR="emacsclientw -t"               # $EDITOR opens in terminal
 export VISUAL="emacsclientw -c -a ''"         # $VISUAL opens in GUI mode
 
 function kill-emacs() {
-    emacsclientw -e '(client-save-kill-emacs)'
+    emacsclientw -e '(kill-emacs)'
 }
 
 if [ -f ${BASHRC_PATH}/.bash_functions  ] ; then . ${BASHRC_PATH}/.bash_functions; fi
