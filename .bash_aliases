@@ -23,5 +23,6 @@ alias ll='ls --color=auto -alF'
 alias ls='ls --color=auto'
 alias path='echo -e ${PATH//:/\\n}'
 alias st='explorer.exe'
+alias wp='echo "$(cygpath -m "$(pwd)")" | clip'
 
 ### Recently added
