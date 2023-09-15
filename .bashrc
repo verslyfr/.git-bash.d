@@ -48,6 +48,8 @@ export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
 export HISTIGNORE="&:bg:fg:ll:h"
 # export HOSTFILE=$HOME/.hosts	# Put a list of remote hosts in ~/.hosts
 
+# PROMPT Settings
+PROMPT_DIRTRIM=1                # Only have the last part of the path
 
 ### Update the path
 if [ -e ~/.local/bin ] ; then PATH+=:~/.local/bin/ ; fi
@@ -101,3 +103,5 @@ then
 else
     echo "Not loading fzf completions because in emacs."
 fi
+
+
