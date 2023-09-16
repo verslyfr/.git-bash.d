@@ -49,7 +49,7 @@ export HISTIGNORE="&:bg:fg:ll:h"
 # export HOSTFILE=$HOME/.hosts	# Put a list of remote hosts in ~/.hosts
 
 # PROMPT Settings
-PROMPT_DIRTRIM=1                # Only have the last part of the path
+PROMPT_DIRTRIM=2                # Only have the last part of the path
 
 ### Update the path
 if [ -e ~/.local/bin ] ; then PATH+=:~/.local/bin/ ; fi
