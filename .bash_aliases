@@ -5,7 +5,7 @@
 
 git_bash_folder="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 if [[ -e ${git_bash_folder}/custom_bash_aliases ]] ; then
-    ${git_bash_folder}/custom_bash_aliases
+    source ${git_bash_folder}/custom_bash_aliases
     ALIAS_FILE="$git_bash_folder/custom_bash_aliases"
 else
     ALIAS_FILE="${git_bash_folder}/.bash_aliases"
