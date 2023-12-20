@@ -136,7 +136,7 @@ function wf {
         return
     fi
     echo "Capturing \"$(realpath "$1")\" on the clipboard."
-    echo "$(cygpath -w "$(realpath "$1")")" | clip
+    echo "$(cygpath -w "$(realpath "$1")")" | tr -d '\n' | clip
 }
 
 function startwin ()
