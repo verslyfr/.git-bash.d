@@ -97,9 +97,9 @@ then
         export FZF_CTRL_T_COMMAND="fd . $HOME"
         export FZF_ALT_C_COMMAND="fd -t d . $HOME"
     fi
-    if [ -f ${HOME}/.local/bin/fzf_completion.bash ]; then . ${HOME}/.local/bin/fzf_completion.bash; fi
-    if [ -f ${HOME}/.local/bin/fzf_keybindings.bash ]; then . ${HOME}/.local/bin/fzf_keybindings.bash; fi
-    
+#    if [ -f ${HOME}/.local/bin/fzf_completion.bash ]; then . ${HOME}/.local/bin/fzf_completion.bash; fi
+#    if [ -f ${HOME}/.local/bin/fzf_keybindings.bash ]; then . ${HOME}/.local/bin/fzf_keybindings.bash; fi
+    eval "$(fzf --bash)"
 else
     echo "Not loading fzf completions because in emacs."
 fi
