@@ -100,6 +100,7 @@ then
 #    if [ -f ${HOME}/.local/bin/fzf_completion.bash ]; then . ${HOME}/.local/bin/fzf_completion.bash; fi
 #    if [ -f ${HOME}/.local/bin/fzf_keybindings.bash ]; then . ${HOME}/.local/bin/fzf_keybindings.bash; fi
     eval "$(fzf --bash)"
+    complete -F _fzf_path_completion st
 else
     echo "Not loading fzf completions because in emacs."
 fi
