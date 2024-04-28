@@ -91,14 +91,16 @@ if [ -f ${BASHRC_PATH}/.bash_aliases  ] ; then . ${BASHRC_PATH}/.bash_aliases; f
 
 if [ "" == "${INSIDE_EMACS}" ]
 then
-    echo "Loading fzf completions if they exist in ~/.local/bin"
+    echo "Initialize fzf to use fd."
     if command -v fd &> /dev/null
     then
-        export FZF_CTRL_T_COMMAND="fd . $HOME"
-        export FZF_ALT_C_COMMAND="fd -t d . $HOME"
+        export FZF_CTRL_T_COMMAND="fd . ~"
+        export FZF_ALT_C_COMMAND="fd -t d . ~"
+    elif command -v fdfind &> /dev/null
+    then
+        export FZF_CTRL_T_COMMAND="fdfind . ~"
+        export FZF_ALT_C_COMMAND="fdfind -t d . ~"       
     fi
-#    if [ -f ${HOME}/.local/bin/fzf_completion.bash ]; then . ${HOME}/.local/bin/fzf_completion.bash; fi
-#    if [ -f ${HOME}/.local/bin/fzf_keybindings.bash ]; then . ${HOME}/.local/bin/fzf_keybindings.bash; fi
     eval "$(fzf --bash)"
     complete -o bashdefault -o default -F _fzf_path_completion st
 else
