@@ -154,4 +154,4 @@ function parse_git_dirty {
 }
 
 # export PS1=$'\[\e[7;107;90m\]\T\[\e[4;100;34m\]\ue0b4\[\e[m\]\[\e[7;107;34m\] \w\[\e[4;44;39m\]\ue0b4\[\e[m\]\[\e[7;49;39m\]'" \`parse_git_branch\`"$'\[\e[7;47;30m\]\ue0b4\[\e[m\] \\$ '
-eval "$(oh-my-posh --init --config "$HOME/.git-bash.d/oh-my-posh.json" --shell bash)"
+eval "$(oh-my-posh init bash --config "$HOME/.git-bash.d/oh-my-posh.json")"
