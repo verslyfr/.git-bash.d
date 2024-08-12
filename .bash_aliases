@@ -35,3 +35,4 @@ alias testspeed='echo "run","date","server name","server id","idle latency","idl
 ### Recently added
 alias omp_dark='eval "$(oh-my-posh init bash --config "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/thecyberden.omp.json")"'
 alias omp_light='eval "$(oh-my-posh init bash --config "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/hunk.omp.json")"'
+alias mv_downloads_pwd='fd --changed-within 5min . ~/Downloads -x mv -v {} .'
