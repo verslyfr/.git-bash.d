@@ -83,12 +83,25 @@ trap _exit EXIT
 BASHRC_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "BASHRC_PATH=${BASHRC_PATH}"
 
+# fix up DIR_COLORS
+eval `dircolors -b DIR_COLORS`
+
 export ALTERNATE_EDITOR=""
-export EDITOR="emacsclientw -t"               # $EDITOR opens in terminal
-export VISUAL="emacsclientw -c -a ''"         # $VISUAL opens in GUI mode
+
+if hash emacsclientw 2>/dev/null; then
+    export EDITOR="emacsclientw -t"               # $EDITOR opens in terminal
+    export VISUAL="emacsclientw -c -a ''"         # $VISUAL opens in GUI mode
+else
+    export EDITOR="emacsclient -nw"
+    export VISUAL="emacsclient -nca '' -d :0"
+fi
 
 function kill-emacs() {
-    emacsclientw -e '(kill-emacs)'
+    if hash emacsclientw 2>/dev/null; then
+        emacsclientw -e '(kill-emacs)'
+    else
+        emacsclient -e '(kill-emacs)'
+    fi
 }
 
 if [ -f ${BASHRC_PATH}/.bash_functions  ] ; then . ${BASHRC_PATH}/.bash_functions; fi
