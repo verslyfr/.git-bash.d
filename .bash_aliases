@@ -36,3 +36,5 @@ alias testspeed='echo "run","date","server name","server id","idle latency","idl
 alias omp_dark='eval "$(oh-my-posh init bash --config "$HOME/.git-bash.d/thecyberden.omp.json")"'
 alias omp_light='eval "$(oh-my-posh init bash --config "$HOME/.git-bash.d/hunk.omp.json")"'
 alias mv_downloads_pwd='fd --changed-within 5min . ~/Downloads -x mv -v {} .'
+alias suzy='sudo zypper'
+alias zy='zypper'

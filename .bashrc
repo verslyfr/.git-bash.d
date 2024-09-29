@@ -9,7 +9,6 @@ fi
 # Source:
 #   https://www.linuxtopia.org/online_books/advanced_bash_scripting_guide/sample-bashrc.html
 
-
 ### Source global definitions (if any)
 
 if [ -f /etc/bashrc ]; then
@@ -67,7 +66,13 @@ nc='\e[0m'
 # --> Nice. Has the same effect as using "ansi.sys" in DOS.
 
 # Looks best on a black background.....
-echo -e "${CYAN}This is BASH ${RED}${BASH_VERSION%.*}${CYAN} - DISPLAY on ${RED}$DISPLAY${NC}\n"
+echo -e "${CYAN}This is BASH ${RED}${BASH_VERSION%.*}${CYAN} - DISPLAY on ${RED}$DISPLAY${NC}"
+
+# for wsl, we use wslpath instead of cygpath
+if hash wslpath 2>/dev/null; then
+    echo -e "Aliasing ${RED}cygpath${NC} to ${RED}wslpath${NC}"
+    alias cygpath=wslpath
+fi
 
 function _exit()	# function to run upon exit of shell
 {
