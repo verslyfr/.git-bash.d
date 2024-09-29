@@ -105,6 +105,6 @@
         }
     ],
     "console_title_template": "{{ .Folder }}",
-    "auto_update": true,
+    "auto_upgrade": true,
     "version": 2
 }
