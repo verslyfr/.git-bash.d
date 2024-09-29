@@ -11,7 +11,7 @@ if [ -f ~/.git-bash.d/.bashrc ]; then . ~/.git-bash.d/.bashrc; fi
 #+end_src
 
 * Recommended Apps to install
-emacs-x11 fzf fd fd-bash-completion ripgrep aspell pandoc cmake
+emacs-x11 fzf fd fd-bash-completion ripgrep aspell aspell-en pandoc cmake
 
 * Additions for opensuse
 sudo zypper install -t pattern devel_basis # developer tools
