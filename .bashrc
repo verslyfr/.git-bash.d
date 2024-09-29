@@ -51,7 +51,7 @@ export HISTIGNORE="&:bg:fg:ll:h"
 PROMPT_DIRTRIM=2                # Only have the last part of the path
 
 ### Update the path
-if [ -e ~/.local/bin ] ; then PATH+=:~/.local/bin/ ; fi
+if [ -e ~/.local/bin ] ; then PATH=~/.local/bin/:${PATH} ; fi
 
 
 ### Define some colors first:
