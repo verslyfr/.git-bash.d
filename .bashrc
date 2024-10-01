@@ -84,7 +84,7 @@ BASHRC_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "BASHRC_PATH=${BASHRC_PATH}"
 
 # fix up DIR_COLORS
-eval `dircolors -b DIR_COLORS`
+eval `dircolors -b "${BASHRC_PATH}/DIR_COLORS"`
 
 export ALTERNATE_EDITOR=""
 
