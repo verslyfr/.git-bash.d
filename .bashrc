@@ -43,6 +43,8 @@ shopt -s extglob                # necessary for programmable completion
 shopt -u mailwarn
 unset MAILCHECK                 # I don't want my shell to warn me of incoming mail
 
+bind 'set completion-ignore-case on'   # ignore case for completions
+
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
 export HISTIGNORE="&:bg:fg:ll:h"
 # export HOSTFILE=$HOME/.hosts	# Put a list of remote hosts in ~/.hosts
