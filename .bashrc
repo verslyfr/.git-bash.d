@@ -74,6 +74,7 @@ echo -e "${CYAN}This is BASH ${RED}${BASH_VERSION%.*}${CYAN} - DISPLAY on ${RED}
 if hash wslpath 2>/dev/null; then
     echo -e "Aliasing ${RED}cygpath${NC} to ${RED}wslpath${NC}"
     alias cygpath=wslpath
+    alias clip=clip.exe
 fi
 
 function _exit()	# function to run upon exit of shell

@@ -29,7 +29,7 @@ alias ll='ls --color=auto -alF'
 alias ls='ls --color=auto'
 alias path='echo -e ${PATH//:/\\n}'
 alias st='startwin'
-alias wp='echo "$(cygpath -m "$(pwd)")" | tr -d "\n" | clip'
+alias wp='echo "$(cygpath -m "$(pwd)")" | tr -d "\n" | clip.exe'
 alias testspeed='echo "run","date","server name","server id","idle latency","idle jitter","packet loss","download","upload","download bytes","upload bytes","share url","download server count","download latency","download latency jitter","download latency low","download latency high","upload latency","upload latency jitter","upload latency low","upload latency high","idle latency low","idle latency high" | tee -a ~/OneDrive/testspeed_results.csv; for i in {1..300}; do echo -n "${i}",`date "+%Y-%m-%d %H%M%S"` "," | tee -a ~/OneDrive/testspeed_results.csv; speedtest -u Mbps -f csv -p no -s 42592 2>&1| tee -a ~/OneDrive/testspeed_results.csv; sleep 900 ; done'
 
 ### Recently added
@@ -38,3 +38,8 @@ alias omp_light='eval "$(oh-my-posh init bash --config "$HOME/.git-bash.d/hunk.o
 alias mv_downloads_pwd='fd --changed-within 5min . ~/Downloads -x mv -v {} .'
 alias suzy='sudo zypper'
 alias zy='zypper'
+
+# this needs to be at the end in case there are overrides
+if [[ -e ${git_bash_folder}/custom_bash_aliases ]] ; then
+    source ${git_bash_folder}/custom_bash_aliases
+fi
