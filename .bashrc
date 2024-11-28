@@ -115,12 +115,12 @@ then
     echo "Initialize fzf to use fd."
     if command -v fd &> /dev/null
     then
-        export FZF_CTRL_T_COMMAND="fd . ~"
-        export FZF_ALT_C_COMMAND="fd -t d . ~"
+        export FZF_CTRL_T_COMMAND="fd -L -E winhome . ~"
+        export FZF_ALT_C_COMMAND="fd -L -E winhome -t d . ~"
     elif command -v fdfind &> /dev/null
     then
-        export FZF_CTRL_T_COMMAND="fdfind . ~"
-        export FZF_ALT_C_COMMAND="fdfind -t d . ~"       
+        export FZF_CTRL_T_COMMAND="fdfind -L -E winhome . ~"
+        export FZF_ALT_C_COMMAND="fdfind -L -E winhome -t d . ~"
     fi
     eval "$(fzf --bash)"
     complete -o bashdefault -o default -F _fzf_path_completion st
