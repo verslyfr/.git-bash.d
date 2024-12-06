@@ -38,6 +38,7 @@ alias omp_light='eval "$(oh-my-posh init bash --config "$HOME/.git-bash.d/hunk.o
 alias mv_downloads_pwd='fd --changed-within 5min . ~/Downloads -x mv -v {} .'
 alias suzy='sudo zypper'
 alias zy='zypper'
+alias up-git='alias up-git; pushd ~/.emacs.d; git pull; cd ~/.git-bash.d; rm thecyberden*; git pull; git restore -- thecyberden.omp.json; popd'
 
 # this needs to be at the end in case there are overrides
 if [[ -e ${git_bash_folder}/custom_bash_aliases ]] ; then
