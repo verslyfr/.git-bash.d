@@ -96,7 +96,7 @@ if hash emacsclientw 2>/dev/null; then
     export VISUAL="emacsclientw -c -a ''"         # $VISUAL opens in GUI mode
 else
     export EDITOR="emacsclient -nw"
-    export VISUAL="emacsclient -nca '' -d :0"
+    export VISUAL="emacsclient -ca '' -d :0"
 fi
 
 function kill-emacs() {
