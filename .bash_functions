@@ -141,16 +141,15 @@ function wf {
 
 function startwin ()
 {
-    filepath="$1"
-    [ "" == "$1" ] && filepath="."
-    
-    if [ ! -e "${filepath}" ]
-    then
-        echo "  Did not find the file, \"$filepath\". Unable to continue."
-        return
-    fi
-    echo "  Opening \"$(realpath "${filepath}")\" using explorer.exe."
-    explorer.exe "$(cygpath -w "$(realpath "${filepath}")")"
+    for filepath in "$@"; do
+        [ "" == "$filepath" ] && filepath="."
+        if [ ! -e "${filepath}" ]; then
+            echo "  Did not find the file, "$filepath". Unable to continue."
+            continue
+        fi
+        echo "  Opening "$(realpath "${filepath}")" using explorer.exe."
+        explorer.exe "$(cygpath -w "$(realpath "${filepath}")")"
+    done
 }
 
 ### ls functions
