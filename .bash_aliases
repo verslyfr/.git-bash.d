@@ -40,6 +40,13 @@ alias suzy='sudo zypper'
 alias zy='zypper'
 alias up-git='alias up-git; pushd ~/.emacs.d; git pull; cd ~/.git-bash.d; rm thecyberden*; git pull; git restore -- thecyberden.omp.json; popd'
 
+# Prefer batcat, then bat, for 'cat' functionality
+if command -v batcat >/dev/null 2>&1; then
+  alias cat='batcat'
+elif command -v bat >/dev/null 2>&1; then
+  alias cat='bat'
+fi
+
 # this needs to be at the end in case there are overrides
 if [[ -e ${git_bash_folder}/custom_bash_aliases ]] ; then
     source ${git_bash_folder}/custom_bash_aliases
