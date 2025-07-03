@@ -127,9 +127,6 @@ then
     export FZF_DEFAULT_COMMAND="${FD_COMMAND} --type f "
     export FZF_DEFAULT_OPTS="--layout=reverse --inline-info --style=default --preview 'bat -n --color=always {}'"
 
-    _fzf_setup_completion path ag git kubectl
-    _fzf_setup_completion dir tree
-    
     _fzf_compgen_path() {
         fd --hidden --follow --exclude ".git" . "$1"
     }
@@ -141,7 +138,9 @@ then
     alias mv-down="fd -t f --changed-within 1d . ~/Downloads | fzf --bind 'enter:become(mv -v {} .)'"
     
     eval "$(fzf --bash)"
-    complete -o bashdefault -o default -F _fzf_path_completion st
+    _fzf_setup_completion path ag git kubectl st
+    _fzf_setup_completion dir tree
+    
 else
     echo "Not loading fzf completions because in emacs."
 fi
