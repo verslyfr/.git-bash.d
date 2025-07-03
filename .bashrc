@@ -117,12 +117,12 @@ then
     _ONEDRIVE=
     _DOWNLOADS=
     if command -v fdfind &> /dev/null; then FD_COMMAND=fdfind; fi
-    [[ -d ~/OneDrive\ -\ Cummins ]] && _ONEDRIVE="~/OneDrive - Cummins"
-    [[ -d ~/OneDrive ]] && _ONEDRIVE="~/OneDrive"
-    [[ -d ~/Downloads ]] && _DOWNLOADS="~/Downloads"
+    [[ -d $HOME/OneDrive\ -\ Cummins ]] && _ONEDRIVE="$HOME/OneDrive - Cummins"
+    [[ -d $HOME/OneDrive ]] && _ONEDRIVE="$HOME/OneDrive"
+    [[ -d $HOME/Downloads ]] && _DOWNLOADS="$HOME/Downloads"
 
-    export FZF_CTRL_T_COMMAND="${FD_COMMAND} -L -E winhome . ${_ONEDRIVE} ${_DOWNLOADS}"
-    export FZF_ALT_C_COMMAND="${FD_COMMAND} -L -E winhome -t d . ${_ONEDRIVE} ${_DOWNLOADS}"
+    export FZF_CTRL_T_COMMAND="${FD_COMMAND} -L -E winhome . \"${_DOWNLOADS}\" \"${_ONEDRIVE}\" "
+    export FZF_ALT_C_COMMAND="${FD_COMMAND} -L -E winhome -t d . \"${_DOWNLOADS}\" \"${_ONEDRIVE}\" "
     export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
     export FZF_DEFAULT_COMMAND="${FD_COMMAND} --type f "
     export FZF_DEFAULT_OPTS="--layout=reverse --inline-info --style=default --preview 'bat -n --color=always {}'"
@@ -135,7 +135,7 @@ then
     _fzf_compgen_dir() {
         fd --type d --hidden --follow --exclude ".git" . "$1"
     }
-    alias mv-down="fd -t f --changed-within 1d . ~/Downloads | fzf --bind 'enter:become(mv -v {} .)'"
+    alias mv-down="fd -t f --changed-within 1d . $HOME/Downloads | fzf --bind 'enter:become(mv -v {} .)'"
     
     eval "$(fzf --bash)"
     _fzf_setup_completion path ag git kubectl st
