@@ -113,15 +113,33 @@ if [ -f ${BASHRC_PATH}/.bash_aliases  ] ; then . ${BASHRC_PATH}/.bash_aliases; f
 if [ "" == "${INSIDE_EMACS}" ]
 then
     echo "Initialize fzf to use fd."
-    if command -v fd &> /dev/null
-    then
-        export FZF_CTRL_T_COMMAND="fd -L -E winhome . ~"
-        export FZF_ALT_C_COMMAND="fd -L -E winhome -t d . ~"
-    elif command -v fdfind &> /dev/null
-    then
-        export FZF_CTRL_T_COMMAND="fdfind -L -E winhome . ~"
-        export FZF_ALT_C_COMMAND="fdfind -L -E winhome -t d . ~"
-    fi
+    FD_COMMAND=fd
+    _ONEDRIVE=
+    _DOWNLOADS=
+    if command -v fdfind &> /dev/null; then FD_COMMAND=fdfind; fi
+    [[ -d ~/OneDrive\ -\ Cummins ]] && _ONEDRIVE="~/OneDrive - Cummins"
+    [[ -d ~/OneDrive ]] && _ONEDRIVE="~/OneDrive"
+    [[ -d ~/Downloads ]] && _DOWNLOADS="~/Downloads"
+
+    export FZF_CTRL_T_COMMAND="${FD_COMMAND} -L -E winhome . ${_ONEDRIVE} ${_DOWNLOADS}"
+    export FZF_ALT_C_COMMAND="${FD_COMMAND} -L -E winhome -t d . ${_ONEDRIVE} ${_DOWNLOADS}"
+    export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
+    export FZF_DEFAULT_COMMAND="${FD_COMMAND} --type f "
+    export FZF_DEFAULT_OPTS="--layout=reverse --inline-info --style=default --preview 'bat -n --color=always {}'"
+
+    _fzf_setup_completion path ag git kubectl
+    _fzf_setup_completion dir tree
+    
+    _fzf_compgen_path() {
+        fd --hidden --follow --exclude ".git" . "$1"
+    }
+
+    # Use fd to generate the list for directory completion
+    _fzf_compgen_dir() {
+        fd --type d --hidden --follow --exclude ".git" . "$1"
+    }
+    alias mv-down="fd -t f --changed-within 1d . ~/Downloads | fzf --bind 'enter:become(mv -v {} .)'"
+    
     eval "$(fzf --bash)"
     complete -o bashdefault -o default -F _fzf_path_completion st
 else
