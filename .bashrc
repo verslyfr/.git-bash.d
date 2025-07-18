@@ -135,7 +135,7 @@ then
     _fzf_compgen_dir() {
         fd --type d --hidden --follow --exclude ".git" . "$1"
     }
-    alias mv-down="fd -t f --changed-within 1d . $HOME/Downloads | fzf --bind 'enter:become(mv -v {} .)'"
+    alias mv-down="fd -t f --changed-within 1d . $HOME/Downloads | fzf -m --bind 'enter:become(mv -v {+} .)'"
     
     eval "$(fzf --bash)"
     _fzf_setup_completion path ag git kubectl st
