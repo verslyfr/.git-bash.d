@@ -12,6 +12,13 @@ else
 fi
 echo "ALIAS_FILE=${ALIAS_FILE}"
 
+# Wrapper for qdbus on Qt6 systems
+# Ensures 'qdbus-qt6' is available, even if only 'qdbus6' exists (common on openSUSE)
+
+if command -v qdbus6 >/dev/null 2>&1 && ! command -v qdbus-qt6 >/dev/null 2>&1; then
+    alias qdbus-qt6='qdbus6'
+fi
+
 ### Define my aliases
 alias alias-edit='e "${ALIAS_FILE}"'
 alias cls='tput reset'
