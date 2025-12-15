@@ -1,8 +1,8 @@
 # -*-sh-*-
 #---------------------------
-# Bash Aliases
+# * Bash Aliases
 #---------------------------
-
+# * Set up custom aliases support and environment variables
 git_bash_folder="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 if [[ -e ${git_bash_folder}/custom_bash_aliases ]] ; then
     source ${git_bash_folder}/custom_bash_aliases
@@ -19,7 +19,7 @@ if command -v qdbus6 >/dev/null 2>&1 && ! command -v qdbus-qt6 >/dev/null 2>&1; 
     alias qdbus-qt6='qdbus6'
 fi
 
-### Define my aliases
+# * Define my aliases
 alias alias-edit='e "${ALIAS_FILE}"'
 alias cls='tput reset'
 alias ebashaliases='e "${ALIAS_FILE}"'
@@ -46,6 +46,9 @@ alias mv_downloads_pwd='fd --changed-within 5min . ~/Downloads -x mv -v {} .'
 alias suzy='sudo zypper'
 alias zy='zypper'
 alias up-git='alias up-git; pushd ~/.emacs.d; git pull; cd ~/.git-bash.d; rm thecyberden*; git pull; git restore -- thecyberden.omp.json; popd'
+alias mv-down="fd -t f --changed-within 1d . $HOME/Downloads | fzf -m --bind 'enter:become(mv -v {+} .)'"
+alias mvdoc="fd -t f --changed-within 3d . $HOME/OneDrive/Scanner-Inbox/Documents/ | fzf -m --bind 'enter:become(mv -v {+} .)'"
+alias mvphoto="fd -t f --changed-within 3d . $HOME/OneDrive/Scanner-Inbox/Photos/ | fzf -m --bind 'enter:become(mv -v {+} .)'"
 
 # Prefer batcat, then bat, for 'cat' functionality
 if command -v batcat >/dev/null 2>&1; then
@@ -54,6 +57,7 @@ elif command -v bat >/dev/null 2>&1; then
   alias cat='bat'
 fi
 
+# * Load the custom bash aliases
 # this needs to be at the end in case there are overrides
 if [[ -e ${git_bash_folder}/custom_bash_aliases ]] ; then
     source ${git_bash_folder}/custom_bash_aliases

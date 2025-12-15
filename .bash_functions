@@ -1,19 +1,19 @@
 # -*-sh-*-
 
-### Bash Functions
+# * Bash Functions
 #----------------------
 
 FUNCTION_FILE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.bash_functions"
 echo "FUNCTION_FILE=${FUNCTION_FILE}"
 
-### File & strings related functions:
+# ** File & strings related functions:
 #-----------------------------------
 
-#### Find a file with a pattern in name:
+# *** ff    :arrow_right: Find a file with a pattern in name:
 function ff() { find . -type f -iname '*'$*'*' -ls ; }
-#### Find a file with pattern $1 in name and Execute $2 on it:
+# *** fe    :arrow_right: Find a file with pattern $1 in name and Execute $2 on it:
 function fe() { find . -type f -iname '*'$1'*' -exec "${2:-file}" {} \;  ; }
-#### find pattern in a set of filesand highlight them:
+# *** fstr  :arrow_right: Find pattern in a set of filesand highlight them:
 function fstr()
 {
     OPTIND=1
@@ -38,7 +38,7 @@ Usage: fstr [-i] \"pattern\" [\"filename pattern\"] "
 sed "s/$1/${SMSO}\0${RMSO}/gI" | more
 }
 
-#### get current host related info
+# ** ii     :arrow_right: get current host related info
 function ii()   # get current host related info
 {
     echo -e "\nYou are logged on ${RED}$HOST"
@@ -53,7 +53,7 @@ function ii()   # get current host related info
     echo
 }
 
-#### Ask for confirmation
+# ** ask    :arrow_right: Ask for confirmation
 function ask()
 {
     echo -n "$@" '[y/n] ' ; read ans
@@ -63,8 +63,8 @@ function ask()
     esac
 }
 
-### Alias Functions
-#### alias-add
+# ** Alias Functions
+# *** alias-add :arrow_right: will add the argument, $1, to the end of the aliases file
 function alias-add() {
     ##
     # alias-add will add the argument, $1, to the end of the aliases file
@@ -75,7 +75,7 @@ function alias-add() {
     fi
 }
 
-#### alias-pwd
+# *** alias-pwd :arrow_right: create a new alias, $1, for the changing the current directory provided by
 function alias-pwd() {
     ##
     # alias-pwd will create a new alias, $1, for the changing the current directory provided by
@@ -89,8 +89,8 @@ function alias-pwd() {
     fi
 }
 
-### Color Functions
-#### color-16
+# ** Color Functions
+# *** color-16 :arrow_right: print out 16 colors to the terminal
 function color-16() {
     ##
     # color-16 will print out the colors to the terminal
@@ -109,7 +109,7 @@ function color-16() {
     done
 }
 
-#### color-256
+# *** color-256 :arrow_right: print out 256 colors to the terminal
 function color-256() {
     ##
     # color-256 will print out colors to the terminal
@@ -128,7 +128,8 @@ function color-256() {
     done
 }
 
-### improve integration with windows a little
+# ** Windows integration functions
+# *** wf :arrow_right: put the file argument on the clipboard in windows format
 function wf {
     if [ ! -f "$1" ]
     then
@@ -139,6 +140,7 @@ function wf {
     echo "$(cygpath -w "$(realpath "$1")")" | tr -d '\n' | clip
 }
 
+# *** startwin :arrow_right: for each file argument will launch explorer.exe on the file
 function startwin ()
 {
     for filepath in "$@"; do
@@ -152,8 +154,8 @@ function startwin ()
     done
 }
 
-### ls functions
-#### lh
+# ** ls functions
+# *** lh :arrow_right: list files sorted by most recent first and chop with head
 function lh () {
     # list file details sorted by most recent at the top and limit with head
     if [[ "$1" == "" ]]
@@ -164,8 +166,7 @@ function lh () {
     fi
 }
 
-
-### fzf functions for fd
+# ** fzf functions for fd
 # To use custom commands instead of find, override _fzf_compgen_{path,dir}
 if ! declare -f _fzf_compgen_path > /dev/null; then
   _fzf_compgen_path() {
@@ -186,27 +187,3 @@ if ! declare -f _fzf_compgen_dir > /dev/null; then
   }
 fi
 
-### git functions
-#### git-ignore-aliases
-function git-ignore-aliases () {
-    if [ ! -f ".bash_aliases" ]; then
-        echo -e "${red}Need to be in the .git-bash.d folder.${nc}"
-        return 5
-    fi
-
-    ## Tell git to ignore the .bash_aliases file
-    echo -e "${blue}Ignoring changes to .bash_aliases in this repository.${nc}"
-    git update-index --verbose --assume-unchanged .bash_aliases
-}
-
-#### git-track-aliases
-function git-track-aliases () {
-    if [ ! -f ".bash_aliases" ]; then
-        echo -e "${red}Need to be in the .git-bash.d folder.${nc}"
-        return 5
-    fi
-    ## Tell git to track the .bash_aliases file
-    echo -e "${blue}Tracking changes to .bash_aliases in this repository.${nc}"
-    git update-index --verbose --no-assume-unchanged .bash_aliases
-    
-}
