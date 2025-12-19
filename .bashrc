@@ -69,6 +69,8 @@ nc='\e[0m'
 
 # Looks best on a black background.....
 echo -e "${CYAN}This is BASH ${RED}${BASH_VERSION%.*}${CYAN} - DISPLAY on ${RED}$DISPLAY${NC}"
+echo -e "Recommended apps: ${RED}pinta${NC}"
+# pinta is an image editor
 
 # for wsl, we use wslpath instead of cygpath
 if hash wslpath 2>/dev/null; then
