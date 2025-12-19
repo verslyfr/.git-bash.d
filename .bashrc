@@ -143,5 +143,3 @@ then
 else
     echo "Not loading fzf completions because in emacs."
 fi
-
-omp_dark
