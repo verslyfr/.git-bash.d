@@ -15,6 +15,8 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc   # --> Read /etc/bashrc, if present.
 fi
 
+
+
 ### Some settings
 
 ulimit -S -c 0                  # Don't want any coredumps
@@ -91,6 +93,7 @@ echo "BASHRC_PATH=${BASHRC_PATH}"
 # fix up DIR_COLORS
 eval `dircolors -b "${BASHRC_PATH}/DIR_COLORS"`
 
+# * Emacs settings
 export ALTERNATE_EDITOR=""
 
 if hash emacsclientw 2>/dev/null; then
@@ -108,7 +111,13 @@ function kill-emacs() {
         emacsclient -e '(kill-emacs)'
     fi
 }
+# ** Set up for wayland
+if [ -f /usr/bin/emacs-wayland ]; then
+    export EMACS_TOOLKIT=wayland
+fi
 
+
+# * Load the bash functions and aliases
 if [ -f ${BASHRC_PATH}/.bash_functions  ] ; then . ${BASHRC_PATH}/.bash_functions; fi
 if [ -f ${BASHRC_PATH}/.bash_aliases  ] ; then . ${BASHRC_PATH}/.bash_aliases; fi
 
