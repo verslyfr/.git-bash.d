@@ -38,6 +38,21 @@ Usage: fstr [-i] \"pattern\" [\"filename pattern\"] "
 sed "s/$1/${SMSO}\0${RMSO}/gI" | more
 }
 
+# ** mv related functions
+# *** mv-rmspaces :arrow-right: removes the spaces in a file name
+mv_rmspaces() {
+  if [ $# -ne 1 ]; then
+    echo "Usage: mv-rmspaces 'file name with spaces'" >&2
+    return 1
+  fi
+  src="$1"
+  dst="${src// /-}"
+  [ "$src" = "$dst" ] && { echo "No spaces to replace: $src"; return 0; }
+  [ -e "$dst" ] && { echo "Target exists, aborting: $dst" >&2; return 1; }
+  mv -- "$src" "$dst"
+}
+alias mv-rmspaces=mv_rmspaces
+
 # ** ii     :arrow_right: get current host related info
 function ii()   # get current host related info
 {
