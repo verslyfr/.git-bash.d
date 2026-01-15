@@ -1,9 +1,7 @@
 
-# The prompt in the emacs shell does not support some control sequences
-# therefore we are fixing up the sequence
-if [ -n "$INSIDE_EMACS" ]; then
-    export PS1='\[\033[32m\]\u@\h \[\033[33m\]\w\[\033[36m\]`__git_ps1`\[\033[0m\]\n$ '
-fi
+GIT_PS1_SHOWDIRTYSTATE=true
+GIT_PS1_SHOWUNTRACKEDFILES=true
+export PS1='\[\033[32m\]\u@\h \[\033[33m\]\w\[\033[36m\]`__git_ps1`\[\033[0m\]\n$ '
 
 #===============================================================
 # Source:
@@ -11,11 +9,8 @@ fi
 
 ### Source global definitions (if any)
 
-if [ -f /etc/bashrc ]; then
-    . /etc/bashrc   # --> Read /etc/bashrc, if present.
-fi
-
-
+[[ -f /etc/bashrc ]] && . /etc/bashrc   # --> Read /etc/bashrc, if present.
+[[ -f /etc/bash.bashrc ]] && . /etc/bash.bashrc 
 
 ### Some settings
 
@@ -55,7 +50,8 @@ export HISTIGNORE="&:bg:fg:ll:h"
 PROMPT_DIRTRIM=2                # Only have the last part of the path
 
 ### Update the path
-if [ -e ~/.local/bin ] ; then PATH=~/.local/bin/:${PATH} ; fi
+[[ -e ${HOME}/.local/bin ]] && export PATH=${HOME}/.local/bin:${PATH}
+[[ -e ${HOME}/.npm-global/bin ]] && export PATH=${PATH}:${HOME}/.npm-global/bin
 
 
 ### Define some colors first:
@@ -101,7 +97,7 @@ if hash emacsclientw 2>/dev/null; then
     export VISUAL="emacsclientw -c -a ''"         # $VISUAL opens in GUI mode
 else
     export EDITOR="emacsclient -nw"
-    export VISUAL="emacsclient -ca '' -d :0"
+    export VISUAL='emacsclient -nca ""'
 fi
 
 function kill-emacs() {

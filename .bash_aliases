@@ -56,6 +56,7 @@ alias up-git='alias up-git; pushd ~/.emacs.d; git pull; cd ~/.git-bash.d; rm the
 alias mv-down="fd -t f --changed-within 1d . $HOME/Downloads | fzf -m --bind 'enter:become(mv -v {+} .)'"
 alias mvdoc="fd -t f --changed-within 3d . $HOME/OneDrive/Scanner-Inbox/Documents/ | fzf -m --bind 'enter:become(mv -v {+} .)'"
 alias mvphoto="fd -t f --changed-within 3d . $HOME/OneDrive/Scanner-Inbox/Photos/ | fzf -m --bind 'enter:become(mv -v {+} .)'"
+alias qe='emacsclient -nw -a ""'
 
 # Prefer batcat, then bat, for 'cat' functionality
 if command -v batcat >/dev/null 2>&1; then
