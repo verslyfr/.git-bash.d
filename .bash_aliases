@@ -51,7 +51,9 @@ alias omp_dark='eval "$(oh-my-posh init bash --config "$HOME/.git-bash.d/thecybe
 alias omp_light='eval "$(oh-my-posh init bash --config "$HOME/.git-bash.d/hunk.omp.json")"'
 alias mv_downloads_pwd='fd --changed-within 5min . ~/Downloads -x mv -v {} .'
 alias suzy='sudo zypper'
+complete -F _zypper suzy
 alias zy='zypper'
+complete -F _zypper zy
 alias up-git='alias up-git; pushd ~/.emacs.d; git pull; cd ~/.git-bash.d; rm thecyberden*; git pull; git restore -- thecyberden.omp.json; popd'
 alias mv-down="fd -t f --changed-within 1d . $HOME/Downloads | fzf -m --bind 'enter:become(mv -v {+} .)'"
 alias mvdoc="fd -t f --changed-within 3d . $HOME/OneDrive/Scanner-Inbox/Documents/ | fzf -m --bind 'enter:become(mv -v {+} .)'"
