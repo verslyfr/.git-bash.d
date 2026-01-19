@@ -30,15 +30,15 @@ alias eini='e "${HOME}/.emacs.d/init.el"'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
 alias h='history 20'
-if command -v eza >/dev/null 2>&1; then
-    alias l='eza -l --icons=auto --color=auto --group-directories-first -m --smart-group --time-style relative -s modified --no-user'
-    alias ls='eza --icons=auto --color=auto --group-directories-first --smart-group --time-style relative'
-    alias la='eza --icons=auto --color=auto --group-directories-first --smart-group -a'
-    alias ll='eza -l --icons=auto --color=auto --group-directories-first -m --smart-group --time-style relative -s modified --no-user -a'
+if command -v lsd >/dev/null 2>&1; then
+    alias l='lsd -l --group-directories-first --date relative --sort time --reverse --blocks permission,size,date,name'
+    alias ls='lsd --group-directories-first'
+    alias la='lsd -a --group-directories-first'
+    alias ll='lsd -al --group-directories-first --date relative --sort time --reverse --blocks permission,size,date,name'
 else
-    alias l='ls --color=auto -otFL'
+    alias l='ls --color=auto -otFLr'
     alias la='ls --color=auto -A'
-    alias ll='ls --color=auto -alF'
+    alias ll='ls --color=auto -altrF'
     alias ls='ls --color=auto'
 fi
 alias path='echo -e ${PATH//:/\\n}'
