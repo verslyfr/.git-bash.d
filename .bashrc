@@ -1,4 +1,14 @@
-# * Git Prompt
+
+# * Configure the git_prompt
+if [[ -e /usr/share/git/completion/git-prompt.sh ]] ; then
+    . /usr/share/git/completion/git-prompt.sh
+elif [[ -e /usr/share/git-core/contrib/completion/git-prompt.sh ]] ; then
+     . /usr/share/git-core/contrib/completion/git-prompt.sh
+elif [[ -e /usr/share/bash-completion/completions/git-prompt.sh ]] ; then
+    . /usr/share/bash-completion/completions/git-prompt.sh
+else
+    echo "Did not find git-prompt.sh"
+fi
 GIT_PS1_SHOWDIRTYSTATE=true
 GIT_PS1_SHOWUNTRACKEDFILES=true
 export PS1='\[\033[32m\]\u@\h \[\033[33m\]\w\[\033[36m\]`__git_ps1`\[\033[0m\]\n$ '
@@ -7,7 +17,7 @@ export PS1='\[\033[32m\]\u@\h \[\033[33m\]\w\[\033[36m\]`__git_ps1`\[\033[0m\]\n
 # Source:
 #   https://www.linuxtopia.org/online_books/advanced_bash_scripting_guide/sample-bashrc.html
 
-# * Source global definitions (if any)
+### Source global definitions (if any)
 
 [[ -f /etc/bashrc ]] && . /etc/bashrc   # --> Read /etc/bashrc, if present.
 [[ -f /etc/bash.bashrc ]] && . /etc/bash.bashrc 
@@ -21,22 +31,20 @@ set -o ignoreeof
 #set -o nounset                  # if we set this it causes git prompt to have issues
 #set -o xtrace                   # useful for debugging
 
-# *# Enable options:
+# ** Enable options:
 shopt -s autocd                 # switch to directory if only path given
 shopt -s cdspell
 shopt -s cdable_vars            # "cd var" will use the value of variable, var, as the
                                 # directory
 shopt -s checkhash
 shopt -s checkwinsize
-# shopt -s mailwarn
-# shopt -s sourcepath
 shopt -s no_empty_cmd_completion  # bash>=2.04 only
 shopt -s nocaseglob             # match file names in a case-insensitive manner
 shopt -s cmdhist
 shopt -s histappend histreedit histverify
 shopt -s extglob                # necessary for programmable completion
 
-# *# Disable options:
+# ** Disable options:
 shopt -u mailwarn
 unset MAILCHECK                 # I don't want my shell to warn me of incoming mail
 
@@ -44,7 +52,6 @@ bind 'set completion-ignore-case on'   # ignore case for completions
 
 export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S\tpcpu %P\n'
 export HISTIGNORE="&:bg:fg:ll:h"
-# export HOSTFILE=$HOME/.hosts	# Put a list of remote hosts in ~/.hosts
 
 # PROMPT Settings
 PROMPT_DIRTRIM=2                # Only have the last part of the path
@@ -107,10 +114,6 @@ function kill-emacs() {
         emacsclient -e '(kill-emacs)'
     fi
 }
-# ** Set up for wayland
-if [ -f /usr/bin/emacs-wayland ]; then
-    export EMACS_TOOLKIT=wayland
-fi
 
 
 # * Load the bash functions and aliases
