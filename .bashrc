@@ -44,6 +44,9 @@ shopt -s cmdhist
 shopt -s histappend histreedit histverify
 shopt -s extglob                # necessary for programmable completion
 
+umask 0077                      # set files rw for user and directories to rwx
+                                # for user; no other access
+
 # ** Disable options:
 shopt -u mailwarn
 unset MAILCHECK                 # I don't want my shell to warn me of incoming mail
