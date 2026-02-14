@@ -107,7 +107,7 @@ if hash emacsclientw 2>/dev/null; then
     export VISUAL="emacsclientw -c -a ''"         # $VISUAL opens in GUI mode
 else
     export EDITOR="emacsclient -nw"
-    export VISUAL='emacsclient -nca ""'
+    export VISUAL='emacsclient -ca ""'
 fi
 
 function kill-emacs() {
@@ -123,17 +123,20 @@ function kill-emacs() {
 if [ -f ${BASHRC_PATH}/.bash_functions  ] ; then . ${BASHRC_PATH}/.bash_functions; fi
 if [ -f ${BASHRC_PATH}/.bash_aliases  ] ; then . ${BASHRC_PATH}/.bash_aliases; fi
 
+# * Initialize fzf to use fd
 echo "Initialize fzf to use fd."
 FD_COMMAND=fd
 _ONEDRIVE=
 _DOWNLOADS=
+_DATA=
 if command -v fdfind &> /dev/null; then FD_COMMAND=fdfind; fi
 [[ -d $HOME/OneDrive\ -\ Cummins ]] && _ONEDRIVE="$HOME/OneDrive - Cummins"
 [[ -d $HOME/OneDrive ]] && _ONEDRIVE="$HOME/OneDrive"
 [[ -d $HOME/Downloads ]] && _DOWNLOADS="$HOME/Downloads"
+[[ -d /mnt/e/Data/ ]] && _DATA="/mnt/e/Data/"
 
-export FZF_CTRL_T_COMMAND="${FD_COMMAND} -L -E winhome . \"${_DOWNLOADS}\" \"${_ONEDRIVE}\" "
-export FZF_ALT_C_COMMAND="${FD_COMMAND} -L -E winhome -t d . \"${_DOWNLOADS}\" \"${_ONEDRIVE}\" "
+export FZF_CTRL_T_COMMAND="${FD_COMMAND} -L -E winhome . \"${_DOWNLOADS}\" \"${_ONEDRIVE}\" \"${_DATA}\" "
+export FZF_ALT_C_COMMAND="${FD_COMMAND} -L -E winhome -t d . \"${_DOWNLOADS}\" \"${_ONEDRIVE}\" \"${_DATA}\" "
 export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
 export FZF_DEFAULT_COMMAND="${FD_COMMAND} --type f "
 export FZF_DEFAULT_OPTS="--layout=reverse --inline-info --style=default --preview 'bat -n --color=always {}'"
