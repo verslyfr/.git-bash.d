@@ -72,3 +72,4 @@ fi
 if [[ -e ${git_bash_folder}/custom_bash_aliases ]] ; then
     source ${git_bash_folder}/custom_bash_aliases
 fi
+alias up-sys='bash ~/.git-bash.d/setup/install.sh'
