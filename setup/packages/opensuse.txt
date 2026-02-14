@@ -9,8 +9,10 @@ fd-bash-completion
 fzf
 gh
 gh-bash-completion
+ghostscript
 google-noto-coloremoji-fonts
 libsixel-utils
+libpng-devel
 lsd
 openscad
 patterns-devel-base-devel_basis
