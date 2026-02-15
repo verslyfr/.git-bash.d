@@ -11,11 +11,11 @@ FILE="$1"
 # Handle Directories
 if [ -d "$FILE" ]; then
     if command -v lsd &> /dev/null; then
-        lsd --tree --depth 2 --color=always --icon=always "$FILE"
+        lsd --tree --depth 2 --color=always --icon=always --directory-only "$FILE"
     elif command -v eza &> /dev/null; then
-        eza --tree --level=2 --color=always --icons --group-directories-first --git "$FILE"
+        eza --tree --level=2 --color=always --icons --group-directories-first --git --only-dirs "$FILE"
     elif command -v tree &> /dev/null; then
-        tree -C -L 2 "$FILE"
+        tree -C -L 2 -d "$FILE"
     else
         ls -F --color=always "$FILE"
     fi
