@@ -137,9 +137,9 @@ if command -v fdfind &> /dev/null; then FD_COMMAND=fdfind; fi
 
 export FZF_CTRL_T_COMMAND="${FD_COMMAND} -L -E winhome . \"${_DOWNLOADS}\" \"${_ONEDRIVE}\" \"${_DATA}\" "
 export FZF_ALT_C_COMMAND="${FD_COMMAND} -L -E winhome -t d . \"${_DOWNLOADS}\" \"${_ONEDRIVE}\" \"${_DATA}\" "
-export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
+export FZF_ALT_C_OPTS="--exact --preview '~/.git-bash.d/fzf-preview.sh {}'"
 export FZF_DEFAULT_COMMAND="${FD_COMMAND} --type f "
-export FZF_DEFAULT_OPTS="--exact --layout=reverse --inline-info --style=default --preview '~/.git-bash.d/preview.sh {}'"
+export FZF_DEFAULT_OPTS="--exact --layout=reverse --inline-info --style=default --preview '~/.git-bash.d/fzf-preview.sh {}'"
 
 _fzf_compgen_path() {
     fd --hidden --follow --exclude ".git" . "$1"

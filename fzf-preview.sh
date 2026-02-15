@@ -7,6 +7,22 @@ if [ -z "$1" ]; then
 fi
 
 FILE="$1"
+
+# Handle Directories
+if [ -d "$FILE" ]; then
+    if command -v lsd &> /dev/null; then
+        lsd --tree --depth 2 --color=always --icon=always "$FILE"
+    elif command -v eza &> /dev/null; then
+        eza --tree --level=2 --color=always --icons --group-directories-first --git "$FILE"
+    elif command -v tree &> /dev/null; then
+        tree -C -L 2 "$FILE"
+    else
+        ls -F --color=always "$FILE"
+    fi
+    exit 0
+fi
+
+# Determine MIME type
 MIME=$(file --mime-type -b -- "$FILE")
 EXT="${FILE##*.}"
 EXT="${EXT,,}" # lowercase extension
