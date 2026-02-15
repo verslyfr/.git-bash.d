@@ -61,6 +61,10 @@ These previews are automatically enabled for:
 *   **Ctrl-T**: File selection.
 *   **Alt-C**: Directory navigation.
 
+**Usage:**
+*   **Toggle Preview**: Press `Ctrl-/` to show/hide the preview pane (hidden by default).
+*   **Layout**: Preview opens on the right (70% width).
+
 ### Key Features & Packages
 
 *   **Editors**: Emacs (GUI/Terminal), custom `VISUAL` settings.

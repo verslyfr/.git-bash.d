@@ -139,7 +139,7 @@ export FZF_CTRL_T_COMMAND="${FD_COMMAND} -L -E winhome . \"${_DOWNLOADS}\" \"${_
 export FZF_ALT_C_COMMAND="${FD_COMMAND} -L -E winhome -t d . \"${_DOWNLOADS}\" \"${_ONEDRIVE}\" \"${_DATA}\" "
 export FZF_ALT_C_OPTS="--exact --preview '~/.git-bash.d/fzf-preview.sh {}'"
 export FZF_DEFAULT_COMMAND="${FD_COMMAND} --type f "
-export FZF_DEFAULT_OPTS="--exact --layout=reverse --inline-info --style=default --preview '~/.git-bash.d/fzf-preview.sh {}'"
+export FZF_DEFAULT_OPTS="--exact --layout=reverse --inline-info --style=default --height 80% --preview-window right,70%,hidden --bind 'ctrl-/:change-preview-window(right,70%|hidden)' --preview '~/.git-bash.d/fzf-preview.sh {}'"
 
 _fzf_compgen_path() {
     fd --hidden --follow --exclude ".git" . "$1"
