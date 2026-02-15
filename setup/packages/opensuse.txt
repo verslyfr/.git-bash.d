@@ -28,3 +28,5 @@ okular
 pandoc-cli
 poppler-tools
 wezterm
+chafa
+ffmpeg

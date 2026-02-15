@@ -21,3 +21,5 @@ imagemagick
 okular
 pandoc
 poppler-utils
+chafa
+ffmpeg
