@@ -139,7 +139,7 @@ export FZF_CTRL_T_COMMAND="${FD_COMMAND} -L -E winhome . \"${_DOWNLOADS}\" \"${_
 export FZF_ALT_C_COMMAND="${FD_COMMAND} -L -E winhome -t d . \"${_DOWNLOADS}\" \"${_ONEDRIVE}\" \"${_DATA}\" "
 export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
 export FZF_DEFAULT_COMMAND="${FD_COMMAND} --type f "
-export FZF_DEFAULT_OPTS="--layout=reverse --inline-info --style=default --preview 'bat -n --color=always {}'"
+export FZF_DEFAULT_OPTS="--exact --layout=reverse --inline-info --style=default --preview 'bat -n --color=always {}'"
 
 _fzf_compgen_path() {
     fd --hidden --follow --exclude ".git" . "$1"

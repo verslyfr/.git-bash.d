@@ -52,7 +52,7 @@ up-sys
 *   **Editors**: Emacs (GUI/Terminal), custom `VISUAL` settings.
 *   **Terminal**: WezTerm (configured for both OpenSUSE and Ubuntu).
 *   **CLI Utilities**:
-    *   `fzf`, `fd`, `ripgrep`, `bat`, `lsd` (modern replacements for standard unix tools).
+    *   `fzf` (configured for exact matching), `fd`, `ripgrep`, `bat`, `lsd` (modern replacements for standard unix tools).
     *   `gh` (GitHub CLI), `git`.
     *   `pandoc`, `aspell`, `zip`, `openscad`.
 *   **Dev Tools**: Build essentials (`devel_basis` / `build-essential`), `cmake`.
