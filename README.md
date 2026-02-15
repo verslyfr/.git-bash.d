@@ -47,6 +47,20 @@ up-sys
     *   **Ubuntu**: Uses `apt` (and external repos/PPAs where needed) to install packages from `setup/packages/ubuntu.txt`.
 3.  **Installs Custom Tools**: Runs scripts in `setup/custom/` (e.g., installing `opencode`).
 
+### Advanced FZF Previews
+
+This configuration includes a custom preview script (`fzf-preview.sh`) that enhances `fzf` with rich media support.
+
+*   **Directories**: Shows a colorful tree view (using `lsd`, `eza`, or `tree`).
+*   **Images**: Renders images directly in the terminal using Sixel graphics (requires `chafa` or `libsixel`).
+*   **Videos**: Extracts and displays a thumbnail frame (requires `ffmpeg`).
+*   **PDFs**: Renders the first page as an image (requires `poppler-utils`).
+*   **Text**: Syntax highlighting via `bat`.
+
+These previews are automatically enabled for:
+*   **Ctrl-T**: File selection.
+*   **Alt-C**: Directory navigation.
+
 ### Key Features & Packages
 
 *   **Editors**: Emacs (GUI/Terminal), custom `VISUAL` settings.
