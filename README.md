@@ -8,7 +8,6 @@ This repository standardizes my shell environment, providing:
 *   **Unified Bash Config**: Shared aliases, functions, and environment variables.
 *   **Package Management**: A single command (`up-sys`) to ensure essential tools are installed across different Linux distributions.
 *   **Custom Tools**: Integrated installers for tools not in standard repositories (e.g., `opencode`).
-*   **Theming**: Configuration for [Oh My Posh](https://ohmyposh.dev/) with custom themes.
 
 ## Installation
 
@@ -88,5 +87,4 @@ These previews are automatically enabled for:
 
 *   **Aliases**: stored in `.bash_aliases`.
 *   **Functions**: stored in `.bash_functions`.
-*   **Themes**: Oh My Posh config files (`*.omp.json`) included in root.
 *   **Package Lists**: Edit `setup/packages/` to add/remove system packages.
