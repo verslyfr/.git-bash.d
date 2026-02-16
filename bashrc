@@ -6,6 +6,8 @@ elif [[ -e /usr/share/git-core/contrib/completion/git-prompt.sh ]] ; then
      . /usr/share/git-core/contrib/completion/git-prompt.sh
 elif [[ -e /usr/share/bash-completion/completions/git-prompt.sh ]] ; then
     . /usr/share/bash-completion/completions/git-prompt.sh
+elip [[ -e /etc/bash_completion.d/git-prompt ]] ; then
+    . /etc/bash_completion.d/git-prompt
 else
     echo "Did not find git-prompt.sh"
 fi
@@ -141,7 +143,7 @@ export FZF_CTRL_T_COMMAND="${FD_COMMAND} -L -E winhome ${_FZF_DIRECTORIES} "
 export FZF_ALT_C_COMMAND="${FD_COMMAND} -L -E winhome -t d  ${_FZF_DIRECTORIES}"
 export FZF_ALT_C_OPTS="--exact --preview '~/.git-bash.d/scripts/fzf-preview.sh {}'"
 export FZF_DEFAULT_COMMAND="${FD_COMMAND} --type f "
-export FZF_DEFAULT_OPTS="--exact --layout=reverse --inline-info --style=default --height 80% --preview-window right,70%,hidden --bind 'ctrl-/:change-preview-window(right,70%|hidden)' --preview '~/.git-bash.d/scripts/fzf-preview.sh {}'"
+export FZF_DEFAULT_OPTS="--exact -i --layout=reverse --inline-info --style=default --height 80% --preview-window right,70%,hidden --bind 'ctrl-/:change-preview-window(right,70%|hidden)' --preview '~/.git-bash.d/scripts/fzf-preview.sh {}'"
 
 _fzf_compgen_path() {
     fd --hidden --follow --exclude ".git" . "$1"
