@@ -6,7 +6,7 @@ elif [[ -e /usr/share/git-core/contrib/completion/git-prompt.sh ]] ; then
      . /usr/share/git-core/contrib/completion/git-prompt.sh
 elif [[ -e /usr/share/bash-completion/completions/git-prompt.sh ]] ; then
     . /usr/share/bash-completion/completions/git-prompt.sh
-elip [[ -e /etc/bash_completion.d/git-prompt ]] ; then
+elif [[ -e /etc/bash_completion.d/git-prompt ]] ; then
     . /etc/bash_completion.d/git-prompt
 else
     echo "Did not find git-prompt.sh"
