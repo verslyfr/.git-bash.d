@@ -69,7 +69,9 @@ add_to_history() {
 }
 
 ALL_FILES=""
+AUTO_ARCHIVE_FILES=""
 PROCESSED_DIRS=()
+MARK_PROCESSED_STR="[MARK_PROCESSED]"
 
 # Iterate over targets to build file list
 for TARGET in "$@"; do
@@ -95,25 +97,32 @@ for TARGET in "$@"; do
         echo "Scanning for images in '$TARGET'..."
         
         # Build file list (non-recursive in main folder)
-        FILES=$(fd -t f -e jpg -e jpeg -e png -e gif -e bmp -e tiff -e webp -e heic -e raw -e nef -e cr2 -e arw -e dng --max-depth 1 . "$TARGET")
+        # Using sed to make paths relative for display
+        FILES=$(fd -t f -e jpg -e jpeg -e png -e gif -e bmp -e tiff -e webp -e heic -e raw -e nef -e cr2 -e arw -e dng --max-depth 1 . "$TARGET" | sed "s|^$ROOT_DIR/||")
         
         if [ -n "$FILES" ]; then
             ALL_FILES="$ALL_FILES"$'\n'"$FILES"
         fi
         
-        # Check subfolders: .original, .originals, .picasaoriginals
-        for sub in ".original" ".originals" ".picasaoriginals"; do
+        # Add dummy entry (relative path is already clean)
+        ALL_FILES="$ALL_FILES"$'\n'"$MARK_PROCESSED_STR ($REL_PATH)"
+        
+        # Check subfolders: .original, .originals, .picasaoriginals, Originals
+        # These are stored in AUTO_ARCHIVE_FILES and NOT shown in FZF
+        for sub in ".original" ".originals" ".picasaoriginals" "Originals"; do
             if [ -d "$TARGET/$sub" ]; then
-                SUB_FILES=$(fd -t f -e jpg -e jpeg -e png -e gif -e bmp -e tiff -e webp -e heic -e raw -e nef -e cr2 -e arw -e dng --max-depth 1 . "$TARGET/$sub")
+                SUB_FILES=$(fd -t f -e jpg -e jpeg -e png -e gif -e bmp -e tiff -e webp -e heic -e raw -e nef -e cr2 -e arw -e dng --max-depth 1 . "$TARGET/$sub" | sed "s|^$ROOT_DIR/||")
                 if [ -n "$SUB_FILES" ]; then
-                    ALL_FILES="$ALL_FILES"$'\n'"$SUB_FILES"
+                    AUTO_ARCHIVE_FILES="$AUTO_ARCHIVE_FILES"$'\n'"$SUB_FILES"
                 fi
             fi
         done
         
     elif [ -f "$TARGET" ]; then
         # --- Single File Handling ---
-        ALL_FILES="$ALL_FILES"$'\n'"$TARGET"
+        # Make path relative
+        REL_FILE="${TARGET#$ROOT_DIR/}"
+        ALL_FILES="$ALL_FILES"$'\n'"$REL_FILE"
     else
         echo "Target not found: $TARGET"
     fi
@@ -121,6 +130,7 @@ done
 
 # Trim leading newline
 ALL_FILES="${ALL_FILES#$'\n'}"
+AUTO_ARCHIVE_FILES="${AUTO_ARCHIVE_FILES#$'\n'}"
 
 if [ -z "$ALL_FILES" ]; then
     echo "No files found to process."
@@ -131,33 +141,51 @@ fi
 # Use generic preview if scripts/fzf-preview.sh is not found in local dir
 # but we know it's in the repo structure relative to this script.
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-PREVIEW_CMD="$SCRIPT_DIR/fzf-preview.sh {}"
+PREVIEW_CMD="$SCRIPT_DIR/fzf-preview.sh $ROOT_DIR/{}"
 
+# FZF now sees relative paths. Preview command needs full path to work.
 SELECTED=$(echo "$ALL_FILES" | fzf -m --preview-window nohidden --preview "$PREVIEW_CMD")
 
 if [ -n "$SELECTED" ]; then
+    
+    # Process FZF Selection (Manual)
     echo "$SELECTED" | while read -r file; do
         if [ -z "$file" ]; then continue; fi
         
-        # Calculate destination path relative to ROOT_DIR
-        ABS_FILE=$(realpath "$file")
-        
-        # Verify file is inside ROOT_DIR
-        if [[ "$ABS_FILE" != "$ROOT_DIR"* ]]; then
-            echo "Warning: File '$file' is outside root directory '$ROOT_DIR'. Skipping."
+        # Check for marker
+        if [[ "$file" == "$MARK_PROCESSED_STR"* ]]; then
+            echo "Marking folder as processed (no files moved for this entry)."
             continue
         fi
         
-        REL_FILE="${ABS_FILE#$ROOT_DIR/}"
-        DEST_DIR="$ARCHIVE_DIR/$(dirname "$REL_FILE")"
+        # Reconstruct absolute source path
+        ABS_FILE="$ROOT_DIR/$file"
+        
+        # Destination path is relative (already have it in $file)
+        DEST_DIR="$ARCHIVE_DIR/$(dirname "$file")"
         
         # Create destination directory
         mkdir -p "$DEST_DIR"
         
         # Move file using rsync (preserve attributes, remove source)
-        echo "Archiving: $REL_FILE"
+        echo "Archiving: $file"
         rsync -av --remove-source-files "$ABS_FILE" "$DEST_DIR/"
     done
+    
+    # Process Auto-Archive Files (Originals)
+    if [ -n "$AUTO_ARCHIVE_FILES" ]; then
+        echo "Auto-archiving originals..."
+        echo "$AUTO_ARCHIVE_FILES" | while read -r file; do
+             if [ -z "$file" ]; then continue; fi
+             
+             ABS_FILE="$ROOT_DIR/$file"
+             DEST_DIR="$ARCHIVE_DIR/$(dirname "$file")"
+             
+             mkdir -p "$DEST_DIR"
+             echo "Archiving (Original): $file"
+             rsync -av --remove-source-files "$ABS_FILE" "$DEST_DIR/"
+        done
+    fi
     
     # Update history for processed directories
     for dir in "${PROCESSED_DIRS[@]}"; do
@@ -166,5 +194,5 @@ if [ -n "$SELECTED" ]; then
     
     echo "Processing complete."
 else
-    echo "No files selected."
+    echo "No files selected. Folders NOT marked as processed."
 fi
