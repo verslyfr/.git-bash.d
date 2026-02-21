@@ -1,25 +1,7 @@
+# * Source:
+# ** https://www.linuxtopia.org/online_books/advanced_bash_scripting_guide/sample-bashrc.html
 
-# * Configure the git_prompt
-if [[ -e /usr/share/git/completion/git-prompt.sh ]] ; then
-    . /usr/share/git/completion/git-prompt.sh
-elif [[ -e /usr/share/git-core/contrib/completion/git-prompt.sh ]] ; then
-     . /usr/share/git-core/contrib/completion/git-prompt.sh
-elif [[ -e /usr/share/bash-completion/completions/git-prompt.sh ]] ; then
-    . /usr/share/bash-completion/completions/git-prompt.sh
-elif [[ -e /etc/bash_completion.d/git-prompt ]] ; then
-    . /etc/bash_completion.d/git-prompt
-else
-    echo "Did not find git-prompt.sh"
-fi
-GIT_PS1_SHOWDIRTYSTATE=true
-GIT_PS1_SHOWUNTRACKEDFILES=true
-export PS1='\[\033[32m\]\u@\h \[\033[33m\]\w\[\033[36m\]`__git_ps1`\[\033[0m\]\n$ '
-
-#===============================================================
-# Source:
-#   https://www.linuxtopia.org/online_books/advanced_bash_scripting_guide/sample-bashrc.html
-
-### Source global definitions (if any)
+# ** Source global definitions (if any)
 
 [[ -f /etc/bashrc ]] && . /etc/bashrc   # --> Read /etc/bashrc, if present.
 [[ -f /etc/bash.bashrc ]] && . /etc/bash.bashrc 
@@ -61,10 +43,25 @@ export HISTIGNORE="&:bg:fg:ll:h"
 # PROMPT Settings
 PROMPT_DIRTRIM=2                # Only have the last part of the path
 
+# * Configure the git_prompt
+if [[ -e /usr/share/git/completion/git-prompt.sh ]] ; then
+    . /usr/share/git/completion/git-prompt.sh
+elif [[ -e /usr/share/git-core/contrib/completion/git-prompt.sh ]] ; then
+     . /usr/share/git-core/contrib/completion/git-prompt.sh
+elif [[ -e /usr/share/bash-completion/completions/git-prompt.sh ]] ; then
+    . /usr/share/bash-completion/completions/git-prompt.sh
+elif [[ -e /etc/bash_completion.d/git-prompt ]] ; then
+    . /etc/bash_completion.d/git-prompt
+else
+    echo "Did not find git-prompt.sh"
+fi
+GIT_PS1_SHOWDIRTYSTATE=true
+GIT_PS1_SHOWUNTRACKEDFILES=true
+export PS1='\[\033[32m\]\u@\h \[\033[33m\]\w\[\033[36m\]`__git_ps1`\[\033[0m\]\n$ '
+
 # * Update the path
 [[ -e ${HOME}/.local/bin ]] && export PATH=${HOME}/.local/bin:${PATH}
 [[ -e ${HOME}/.npm-global/bin ]] && export PATH=${PATH}:${HOME}/.npm-global/bin
-
 
 # * Define some colors first:
 red='\e[0;31m'
