@@ -52,6 +52,8 @@ elif [[ -e /usr/share/bash-completion/completions/git-prompt.sh ]] ; then
     . /usr/share/bash-completion/completions/git-prompt.sh
 elif [[ -e /etc/bash_completion.d/git-prompt ]] ; then
     . /etc/bash_completion.d/git-prompt
+elif [[ -e ~/.local/bin/git-prompt.sh ]] ; then
+    . ~/.local/bin/git-prompt.sh
 else
     echo "Did not find git-prompt.sh"
 fi
