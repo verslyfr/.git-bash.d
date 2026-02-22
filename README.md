@@ -64,6 +64,16 @@ These previews are automatically enabled for:
 *   **Toggle Preview**: Press `Ctrl-/` to show/hide the preview pane (hidden by default).
 *   **Layout**: Preview opens on the right (70% width).
 
+### Repository Maintenance
+
+*   **`up-git`**: Updates both `~/.emacs.d` and `~/.git-bash.d` by pulling the latest changes from their respective git repositories.
+
+### Quick File Management
+
+*   **`mv-down`**: Move recent files (changed within 1 day) from `~/Downloads` to the current directory using `fzf` for selection.
+*   **`mvdoc`**: Move recent files (changed within 3 days) from `~/OneDrive/Scanner-Inbox/Documents/` to the current directory.
+*   **`mvphoto`**: Move recent files (changed within 3 days) from `~/OneDrive/Scanner-Inbox/Photos/` to the current directory.
+
 ### Key Features & Packages
 
 *   **Editors**: Emacs (GUI/Terminal), custom `VISUAL` settings.
@@ -71,7 +81,7 @@ These previews are automatically enabled for:
 *   **CLI Utilities**:
     *   `fzf` (configured for exact matching), `fd`, `ripgrep`, `bat`, `lsd` (modern replacements for standard unix tools).
     *   `gh` (GitHub CLI), `git`.
-    *   `pandoc`, `aspell`, `zip`, `openscad`.
+    *   `pandoc`, `aspell`, `zip`, `openscad`, `speedtest-cli`.
 *   **Dev Tools**: Build essentials (`devel_basis` / `build-essential`), `cmake`.
 *   **Multimedia**: `ImageMagick`, `exiftool`, `pinta`, `okular`.
 

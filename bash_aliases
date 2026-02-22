@@ -30,39 +30,47 @@ alias eini='e "${HOME}/.emacs.d/init.el"'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
 alias h='history 20'
-if command -v lsd >/dev/null 2>&1; then
-    alias l='lsd -l --group-directories-first --date relative --sort time --reverse --blocks permission,size,date,name'
-    alias ls='lsd --group-directories-first'
-    alias la='lsd -a --group-directories-first'
-    alias ll='lsd -al --group-directories-first --date relative --sort time --reverse --blocks permission,size,date,name'
-else
-    alias l='ls --color=auto -otFLr'
-    alias la='ls --color=auto -A'
-    alias ll='ls --color=auto -altrF'
-    alias ls='ls --color=auto'
-fi
-alias path='echo -e ${PATH//:/\\n}'
-alias st='startwin'
-alias wp='echo "$(cygpath -m "$(pwd)")" | tr -d "\n" | clip.exe'
-alias testspeed='echo "run","date","server name","server id","idle latency","idle jitter","packet loss","download","upload","download bytes","upload bytes","share url","download server count","download latency","download latency jitter","download latency low","download latency high","upload latency","upload latency jitter","upload latency low","upload latency high","idle latency low","idle latency high" | tee -a ~/OneDrive/testspeed_results.csv; for i in {1..300}; do echo -n "${i}",`date "+%Y-%m-%d %H%M%S"` "," | tee -a ~/OneDrive/testspeed_results.csv; speedtest -u Mbps -f csv -p no -s 42592 2>&1| tee -a ~/OneDrive/testspeed_results.csv; sleep 900 ; done'
-
-### Recently added
-alias mv_downloads_pwd='fd --changed-within 5min . ~/Downloads -x mv -v {} .'
-alias suzy='sudo zypper'
-complete -F _zypper suzy
-alias zy='zypper'
-complete -F _zypper zy
-alias up-git='alias up-git; pushd ~/.emacs.d; git pull; cd ~/.git-bash.d; git pull; popd'
 alias mv-down="fd -t f --changed-within 1d . $HOME/Downloads | fzf -m --bind 'enter:become(mv -v {+} .)'"
+alias mv_downloads_pwd='fd --changed-within 5min . ~/Downloads -x mv -v {} .'
 alias mvdoc="fd -t f --changed-within 3d . $HOME/OneDrive/Scanner-Inbox/Documents/ | fzf -m --bind 'enter:become(mv -v {+} .)'"
 alias mvphoto="fd -t f --changed-within 3d . $HOME/OneDrive/Scanner-Inbox/Photos/ | fzf -m --bind 'enter:become(mv -v {+} .)'"
+alias path='echo -e ${PATH//:/\\n}'
 alias qe='emacsclient -nw -a ""'
+alias st='startwin'
+alias suzy='sudo zypper'
+alias testspeed='echo "Server ID,Sponsor,Server Name,Timestamp,Distance,Ping,Download,Upload,Share,IP Address" | tee -a ~/OneDrive/testspeed_results.csv; for i in {1..300}; do echo -n "${i}",`date "+%Y-%m-%d %H%M%S"` "," | tee -a ~/OneDrive/testspeed_results.csv; speedtest --csv 2>&1| tee -a ~/OneDrive/testspeed_results.csv; sleep 900 ; done'
+alias up-git='alias up-git; pushd ~/.emacs.d; git pull; cd ~/.git-bash.d; git pull; popd'
+alias up-sys='bash ~/.git-bash.d/setup/install.sh'
+alias wp='echo "$(cygpath -m "$(pwd)")" | tr -d "\n" | clip.exe'
+alias zy='zypper'
+complete -F _zypper suzy
+complete -F _zypper zy
 
-# Prefer batcat, then bat, for 'cat' functionality
+# ** Prefer batcat, then bat, for 'cat' functionality
 if command -v batcat >/dev/null 2>&1; then
   alias cat='batcat'
 elif command -v bat >/dev/null 2>&1; then
   alias cat='bat'
+fi
+
+# ** Utilize lsd if present
+if command -v lsd >/dev/null 2>&1; then
+    alias l='lsd -l -a --group-directories-first --date relative --sort time --reverse --blocks permission,size,date,name'
+    alias ls='lsd --group-directories-first'
+    alias la='lsd -a --group-directories-first'
+    alias ll='lsd -al --group-directories-first --date relative --sort time --reverse --blocks permission,size,date,name'
+else
+    alias l='ls -a --color=auto -otFLr'
+    alias la='ls --color=auto -A'
+    alias ll='ls --color=auto -altrF'
+    alias ls='ls --color=auto'
+fi
+
+# ** docker-opencode
+if [[ -e "${HOME}/src/docker-opencode/docker-opencode.sh" ]] ; then
+    alias d-opencode="${HOME}/src/docker-opencode/docker-opencode.sh"
+else
+    alias d-opencode="echo docker-opencode is not in ~/src"
 fi
 
 # * Load the custom bash aliases
@@ -70,4 +78,3 @@ fi
 if [[ -e ${git_bash_folder}/custom_bash_aliases ]] ; then
     source ${git_bash_folder}/custom_bash_aliases
 fi
-alias up-sys='bash ~/.git-bash.d/setup/install.sh'
