@@ -149,7 +149,8 @@ SELECTED=$(echo "$ALL_FILES" | fzf -m --preview-window nohidden --preview "$PREV
 if [ -n "$SELECTED" ]; then
     
     # Process FZF Selection (Manual)
-    echo "$SELECTED" | while read -r file; do
+    SYNC_FILES=""
+    while IFS= read -r file; do
         if [ -z "$file" ]; then continue; fi
         
         # Check for marker
@@ -158,33 +159,21 @@ if [ -n "$SELECTED" ]; then
             continue
         fi
         
-        # Reconstruct absolute source path
-        ABS_FILE="$ROOT_DIR/$file"
-        
-        # Destination path is relative (already have it in $file)
-        DEST_DIR="$ARCHIVE_DIR/$(dirname "$file")"
-        
-        # Create destination directory
-        mkdir -p "$DEST_DIR"
-        
-        # Move file using rsync (preserve attributes, remove source)
-        echo "Archiving: $file"
-        rsync -av --remove-source-files "$ABS_FILE" "$DEST_DIR/"
-    done
+        SYNC_FILES="$SYNC_FILES"$'\n'"$file"
+    done <<< "$SELECTED"
+    
+    # Trim leading newline
+    SYNC_FILES="${SYNC_FILES#$'\n'}"
+    
+    if [ -n "$SYNC_FILES" ]; then
+        echo "Archiving selected files..."
+        echo "$SYNC_FILES" | rsync -av --remove-source-files --files-from=- "$ROOT_DIR/" "$ARCHIVE_DIR/"
+    fi
     
     # Process Auto-Archive Files (Originals)
     if [ -n "$AUTO_ARCHIVE_FILES" ]; then
         echo "Auto-archiving originals..."
-        echo "$AUTO_ARCHIVE_FILES" | while read -r file; do
-             if [ -z "$file" ]; then continue; fi
-             
-             ABS_FILE="$ROOT_DIR/$file"
-             DEST_DIR="$ARCHIVE_DIR/$(dirname "$file")"
-             
-             mkdir -p "$DEST_DIR"
-             echo "Archiving (Original): $file"
-             rsync -av --remove-source-files "$ABS_FILE" "$DEST_DIR/"
-        done
+        echo "$AUTO_ARCHIVE_FILES" | rsync -av --remove-source-files --files-from=- "$ROOT_DIR/" "$ARCHIVE_DIR/"
     fi
     
     # Update history for processed directories
