@@ -1,3 +1,4 @@
+# -*-sh-*-
 # * Source:
 # ** https://www.linuxtopia.org/online_books/advanced_bash_scripting_guide/sample-bashrc.html
 
