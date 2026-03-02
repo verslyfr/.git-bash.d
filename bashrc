@@ -6,7 +6,7 @@
 [[ -f /etc/bashrc ]] && . /etc/bashrc   # --> Read /etc/bashrc, if present.
 [[ -f /etc/bash.bashrc ]] && . /etc/bash.bashrc 
 
-# * Some settings
+# * Some settings for bash
 
 ulimit -S -c 0                  # Don't want any coredumps
 set -o notify
