@@ -1,7 +1,6 @@
 # -*-sh-*-
 # * Source:
 # ** https://www.linuxtopia.org/online_books/advanced_bash_scripting_guide/sample-bashrc.html
-
 # ** Source global definitions (if any)
 
 [[ -f /etc/bashrc ]] && . /etc/bashrc   # --> Read /etc/bashrc, if present.
