@@ -44,7 +44,7 @@ up-sys
 2.  **Installs System Packages**:
     *   **OpenSUSE**: Uses `zypper` to install packages listed in `setup/packages/opensuse.txt`.
     *   **Ubuntu**: Uses `apt` (and external repos/PPAs where needed) to install packages from `setup/packages/ubuntu.txt`.
-3.  **Installs Custom Tools**: Runs scripts in `setup/custom/` (e.g., installing `opencode`).
+3.  **Installs Custom Tools**: Runs scripts in `setup/custom/` (e.g., installing `opencode` and `tldr`).
 
 ### Advanced FZF Previews
 
@@ -80,6 +80,7 @@ These previews are automatically enabled for:
 *   **Terminal**: WezTerm (configured for both OpenSUSE and Ubuntu).
 *   **CLI Utilities**:
     *   `fzf` (configured for exact matching), `fd`, `ripgrep`, `bat`, `lsd` (modern replacements for standard unix tools).
+    *   `tldr` (simplified man pages, installed via `pipx`).
     *   `gh` (GitHub CLI), `git`.
     *   `pandoc`, `aspell`, `zip`, `openscad`, `speedtest-cli`.
 *   **Dev Tools**: Build essentials (`devel_basis` / `build-essential`), `cmake`.

@@ -32,3 +32,4 @@ speedtest-cli
 wezterm
 xdg-utils
 zip
+python313-pipx
