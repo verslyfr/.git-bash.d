@@ -135,13 +135,13 @@ _DATA=
 if command -v fdfind &> /dev/null; then FD_COMMAND=fdfind; fi
 
 _FZF_DIRECTORIES='.'
-[[ -d ${HOME}/OneDrive\ -\ Cummins ]] && _FZF_DIRECTORIES="${_FZF_DIRECTORIES} "'"${HOME}/OneDrive - Cummins"'
-[[ -d ${HOME}/OneDrive ]] && _FZF_DIRECTORIES="${_FZF_DIRECTORIES} "'"${HOME}/OneDrive"'
+[[ -d /mnt/d/versly/ ]] && _FZF_DIRECTORIES="${_FZF_DIRECTORIES} "'"/mnt/d/versly/"'
 [[ -d ${HOME}/Downloads ]] && _FZF_DIRECTORIES="${_FZF_DIRECTORIES} "'"${HOME}/Downloads"'
 [[ -d /mnt/e/Data/ ]] && _FZF_DIRECTORIES="${_FZF_DIRECTORIES} "'"/mnt/e/Data/"'
+[[ -d ${HOME}/OneDrive ]] && _FZF_DIRECTORIES="${_FZF_DIRECTORIES} "'"${HOME}/OneDrive/"'
 
-export FZF_CTRL_T_COMMAND="${FD_COMMAND} -L -E winhome ${_FZF_DIRECTORIES} "
-export FZF_ALT_C_COMMAND="${FD_COMMAND} -L -E winhome -t d  ${_FZF_DIRECTORIES}"
+export FZF_CTRL_T_COMMAND="${FD_COMMAND} -p -L ${_FZF_DIRECTORIES} "
+export FZF_ALT_C_COMMAND="${FD_COMMAND} -p -L -t d  ${_FZF_DIRECTORIES}"
 export FZF_ALT_C_OPTS="--exact --preview '~/.git-bash.d/scripts/fzf-preview.sh {}'"
 export FZF_DEFAULT_COMMAND="${FD_COMMAND} --type f "
 export FZF_DEFAULT_OPTS="--exact -i --layout=reverse --inline-info --style=default --height 80% --preview-window right,70%,hidden --bind 'ctrl-/:change-preview-window(right,70%|hidden)' --preview '~/.git-bash.d/scripts/fzf-preview.sh {}'"
