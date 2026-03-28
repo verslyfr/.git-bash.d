@@ -135,7 +135,8 @@ _DATA=
 if command -v fdfind &> /dev/null; then FD_COMMAND=fdfind; fi
 
 _FZF_DIRECTORIES='.'
-[[ -d ${HOME}/src ]] && _FZF_DIRECTORIES="${_FZF_DIRECTORIES} "'"${HOME}/src/"'
+[[ -d ${HOME}/src/ ]] && _FZF_DIRECTORIES="${_FZF_DIRECTORIES} "'"${HOME}/src/"'
+[[ -d ${HOME}/notes/ ]] && _FZF_DIRECTORIES="${_FZF_DIRECTORIES} "'"${HOME}/notes/"'
 [[ -d /mnt/d/versly/ ]] && _FZF_DIRECTORIES="${_FZF_DIRECTORIES} "'"/mnt/d/versly/"'
 [[ -d ${HOME}/Downloads ]] && _FZF_DIRECTORIES="${_FZF_DIRECTORIES} "'"${HOME}/Downloads"'
 [[ -d /mnt/e/Data/ ]] && _FZF_DIRECTORIES="${_FZF_DIRECTORIES} "'"/mnt/e/Data/"'
