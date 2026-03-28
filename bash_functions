@@ -202,3 +202,54 @@ if ! declare -f _fzf_compgen_dir > /dev/null; then
   }
 fi
 
+# Purpose: Initializes a local-only Git workflow using a Syncthing-backed 
+#          bare repository and a non-synced working directory in ~/src.
+# Syntax:  new-project <project_name>
+# Example: new-project automation-scripts
+# Constraints: 
+#   1. Requires ~/.local/repos to be symlinked to the 'repos' directory in 'versly'.
+#   2. Requires ~/src directory to exist for working copies.
+#   3. Project name must not contain spaces or special characters.
+new-project() {
+    local NAME=$1
+    local BARE_ROOT="$HOME/.local/repos"
+    local SRC_ROOT="$HOME/src"
+
+    # Argument check
+    if [ -z "$NAME" ]; then
+        echo "Error: Project name required."
+        echo "Usage: new-project <name>"
+        return 1
+    fi
+
+    # 1. Root directory existence checks
+    if [ ! -d "$BARE_ROOT" ]; then
+        echo "Error: Base sync directory $BARE_ROOT not found. This folder must be symlinked to the 'repos' directory in 'versly'."
+        return 1
+    fi
+
+    if [ ! -d "$SRC_ROOT" ]; then
+        echo "Error: Local source directory $SRC_ROOT not found. Create it first."
+        return 1
+    fi
+
+    # 2. Project-specific existence checks
+    local BARE_PATH="${BARE_ROOT}/${NAME}.git"
+    local SRC_PATH="${SRC_ROOT}/${NAME}"
+
+    if [ -d "$BARE_PATH" ] || [ -d "$SRC_PATH" ]; then
+        echo "Error: Initialization aborted."
+        [ -d "$BARE_PATH" ] && echo "  - Bare repository already exists: $BARE_PATH"
+        [ -d "$SRC_PATH" ] && echo "  - Working directory already exists: $SRC_PATH"
+        return 1
+    fi
+
+    # 3. Execution
+    mkdir -p "$BARE_PATH"
+    git init --bare "$BARE_PATH"
+    git clone "$BARE_PATH" "$SRC_PATH"
+
+    echo "Success: Project '$NAME' initialized."
+    echo "Bare (synced): $BARE_PATH"
+    echo "Work (local):  $SRC_PATH"
+}
