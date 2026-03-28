@@ -202,6 +202,19 @@ if ! declare -f _fzf_compgen_dir > /dev/null; then
   }
 fi
 
+# Helper: Add a directory to git's safe.directory if not already present
+_git_mark_safe() {
+    local target="$1"
+    [ -z "$target" ] && return
+    local rtarget=$(realpath "$target" 2>/dev/null || echo "$target")
+    
+    for p in "$target" "$rtarget"; do
+        if ! git config --global --get-all safe.directory 2>/dev/null | grep -qxF "$p"; then
+            git config --global --add safe.directory "$p"
+        fi
+    done
+}
+
 # Purpose: Initializes a local-only Git workflow using a Syncthing-backed 
 #          bare repository and a non-synced working directory in ~/src.
 # Syntax:  new-project <project_name>
@@ -245,9 +258,23 @@ new-project() {
     fi
 
     # 3. Execution
-    mkdir -p "$BARE_PATH"
-    git init --bare "$BARE_PATH"
-    git clone "$BARE_PATH" "$SRC_PATH"
+    # Create the bare repository
+    mkdir -p "$BARE_PATH" || return 1
+    git init --bare "$BARE_PATH" || return 1
+    _git_mark_safe "$BARE_PATH"
+
+    # Create the local repository with an initial commit to avoid empty clone/safe.dir issues
+    mkdir -p "$SRC_PATH" || return 1
+    pushd "$SRC_PATH" > /dev/null
+    git init || { popd > /dev/null; return 1; }
+    _git_mark_safe "$SRC_PATH"
+
+    echo "# $NAME" > README.md
+    git add README.md
+    git commit -m "Initial commit" || { popd > /dev/null; return 1; }
+    git remote add origin "$BARE_PATH"
+    git push -u origin HEAD || { popd > /dev/null; return 1; }
+    popd > /dev/null
 
     echo "Success: Project '$NAME' initialized."
     echo "Bare (synced): $BARE_PATH"

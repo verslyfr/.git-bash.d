@@ -99,3 +99,7 @@ These previews are automatically enabled for:
 *   **Aliases**: stored in `.bash_aliases`.
 *   **Functions**: stored in `.bash_functions`.
 *   **Package Lists**: Edit `setup/packages/` to add/remove system packages.
+
+## AI Agent Workflow
+
+If you are an AI assistant or automated agent working in this repository, please review and adhere to the guidelines established in [`AGENTS.md`](AGENTS.md).
