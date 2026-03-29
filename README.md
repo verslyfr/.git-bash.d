@@ -92,6 +92,7 @@ These previews are automatically enabled for:
 | :--- | :--- | :--- |
 | **OpenSUSE Tumbleweed** | ✅ Fully Supported | Uses `zypper` + patterns. |
 | **Ubuntu / Debian** | ✅ Fully Supported | Maps packages, adds PPAs (e.g. WezTerm), handles symlinks (`batcat` -> `bat`). |
+| **Android (Termux)** | ✅ Fully Supported | Uses `pkg install`. Focuses on CLI utilities, excluding desktop applications. |
 | **Windows (Git Bash)** | ⚠️ Partial Support | Core bash config works. `up-sys` logic is Linux-specific. |
 
 ## Customization

@@ -8,7 +8,9 @@ PACKAGE_DIR="${SETUP_DIR}/packages"
 CUSTOM_DIR="${SETUP_DIR}/custom"
 
 # Source OS release info
-if [ -f /etc/os-release ]; then
+if [ -n "${PREFIX:-}" ] && [ "$(uname -o 2>/dev/null)" = "Android" ]; then
+    ID="termux"
+elif [ -f /etc/os-release ]; then
     . /etc/os-release
 else
     echo "Cannot detect OS. Exiting."
@@ -37,6 +39,18 @@ install_packages() {
 
 # Main Logic
 case "$ID" in
+    termux)
+        echo "Running Termux setup..."
+        pkg update -y
+        install_packages "${PACKAGE_DIR}/termux.txt" "pkg install -y"
+        
+        # Install pipx via pip for Termux
+        if ! command -v pipx &> /dev/null; then
+            echo "Installing pipx via pip..."
+            python -m pip install --user pipx
+            python -m pipx ensurepath
+        fi
+        ;;
     opensuse*|suse)
         echo "Running OpenSUSE setup..."
         install_packages "${PACKAGE_DIR}/opensuse.txt" "sudo zypper install -y"
