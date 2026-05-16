@@ -66,6 +66,8 @@ export PS1='\[\033[32m\]\u@\h \[\033[33m\]\w\[\033[36m\]`__git_ps1`\[\033[0m\]\n
 # * Update the path
 [[ -e ${HOME}/.local/bin ]] && export PATH=${HOME}/.local/bin:${PATH}
 [[ -e ${HOME}/.npm-global/bin ]] && export PATH=${PATH}:${HOME}/.npm-global/bin
+[[ -e ${HOME}/.local/emacs-31/bin ]] && export PATH=${HOME}/.local/emacs-31/bin:${PATH}
+
 
 # * Define some colors first:
 red='\e[0;31m'
