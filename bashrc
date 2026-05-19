@@ -42,6 +42,29 @@ export HISTIGNORE="&:bg:fg:ll:h"
 
 # PROMPT Settings
 PROMPT_DIRTRIM=2                # Only have the last part of the path
+echo "TERM_PROGRAM=${TERM_PROGRAM}"
+
+
+# ** ghostty setup
+# # -----------------------------------------------------------------------------
+# # Ghostty Configuration File
+# # Location: ~/.config/ghostty/config
+# # -----------------------------------------------------------------------------
+# # Shell Integration
+# # Disables native title updates so custom ~/.bashrc hooks work correctly.
+# # Keeps other features like directory tracking and prompt marks active.
+# shell-integration-features = no-title
+# # Font Settings
+# font-family = "Hack Nerd Font"
+# font-size = 13.0
+# window-width = 120
+# window-height = 32
+# # -----------------------------------------------------------------------------
+
+if [ "$TERM_PROGRAM" = "ghostty" ]; then
+    # Prefixes window title with "ghostty: " followed by the current directory
+    PROMPT_COMMAND='echo -ne "\033]2;ghostty: ${PWD/#$HOME/\~}\007"; '"$PROMPT_COMMAND"
+fi
 
 # * Configure the git_prompt
 if [[ -e /usr/share/git/completion/git-prompt.sh ]] ; then
