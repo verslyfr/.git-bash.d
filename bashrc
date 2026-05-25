@@ -113,6 +113,7 @@ if hash wslpath 2>/dev/null; then
     echo -e "Aliasing ${RED}cygpath${NC} to ${RED}wslpath${NC}"
     alias cygpath=wslpath
     alias clip=clip.exe
+    export GDK_BACKEND=wayland
     export XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir
     export WAYLAND_DISPLAY=wayland-0
 fi
