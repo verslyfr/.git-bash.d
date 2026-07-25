@@ -19,6 +19,27 @@ if command -v qdbus6 >/dev/null 2>&1 && ! command -v qdbus-qt6 >/dev/null 2>&1; 
     alias qdbus-qt6='qdbus6'
 fi
 
+# * functions necessary for aliases
+rsync_confirm() {
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        echo "Usage: rsync_confirm <source_directory> <target_directory>"
+        return 1
+    fi
+
+    echo "Previewing changes:"
+    rsync -avu --delete --dry-run "$1" "$2"
+
+    read -p "Execute these changes? (y/n) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        rsync -avu --delete "$1" "$2"
+        echo "Sync complete."
+    else
+        echo "Sync aborted."
+    fi
+}
+
+
 # * Define my aliases
 alias alias-edit='e "${ALIAS_FILE}"'
 alias cls='tput reset'
@@ -34,6 +55,7 @@ alias mv-down="fd -t f --changed-within 1d . $HOME/Downloads | fzf -m --bind 'en
 alias mv_downloads_pwd='fd --changed-within 5min . ~/Downloads -x mv -v {} .'
 alias mvdoc="fd -t f --changed-within 3d . $HOME/OneDrive/Scanner-Inbox/Documents/ | fzf -m --bind 'enter:become(mv -v {+} .)'"
 alias mvphoto="fd -t f --changed-within 3d . $HOME/OneDrive/Scanner-Inbox/Photos/ | fzf -m --bind 'enter:become(mv -v {+} .)'"
+alias notes_sync="rsync_confirm /home/verslyfr/notes/ /home/verslyfr/OneDrive/notes/"
 alias path='echo -e ${PATH//:/\\n}'
 alias qe='emacsclient -nw -a ""'
 alias st='startwin'
