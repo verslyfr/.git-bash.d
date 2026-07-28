@@ -304,6 +304,6 @@ borgmount() {
 
 # Unmount the repository
 borgumount() {
-    borg umount "$BORG_MOUNT_POINT"
+    fusermount3 -u "$BORG_MOUNT_POINT"
     echo "Unmounted $BORG_MOUNT_POINT"
 }
