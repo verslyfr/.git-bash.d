@@ -280,3 +280,30 @@ new-project() {
     echo "Bare (synced): $BARE_PATH"
     echo "Work (local):  $SRC_PATH"
 }
+# ** borgbackup functions
+# BorgBackup Management Variables
+export BORG_REPO="/mnt/k/borg-repo"
+export BORG_MOUNT_POINT="/tmp/borg-mount"
+
+# List all archives
+borglist() {
+    borg list "$BORG_REPO"
+}
+
+# Mount archive(s). Usage: borgmount [archive_name]
+borgmount() {
+    mkdir -p "$BORG_MOUNT_POINT"
+    if [ -z "$1" ]; then
+        borg mount "$BORG_REPO" "$BORG_MOUNT_POINT"
+        echo "Mounted all archives to $BORG_MOUNT_POINT"
+    else
+        borg mount "$BORG_REPO::$1" "$BORG_MOUNT_POINT"
+        echo "Mounted $1 to $BORG_MOUNT_POINT"
+    fi
+}
+
+# Unmount the repository
+borgumount() {
+    borg umount "$BORG_MOUNT_POINT"
+    echo "Unmounted $BORG_MOUNT_POINT"
+}
