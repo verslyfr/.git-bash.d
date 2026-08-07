@@ -65,8 +65,13 @@ alias up-git='alias up-git; pushd ~/.emacs.d; git pull; cd ~/.git-bash.d; git pu
 alias up-sys='bash ~/.git-bash.d/setup/install.sh'
 alias wp='echo "$(cygpath -m "$(pwd)")" | tr -d "\n" | clip.exe'
 alias zy='zypper'
-complete -F _zypper suzy
-complete -F _zypper zy
+
+
+if [[ -e /usr/share/bash-completion//completions/zypper ]] ; then  
+    source /usr/share/bash-completion/completions/zypper 2>/dev/null 
+    complete -F _zypper suzy
+    complete -F _zypper zy
+fi 
 
 # ** Prefer batcat, then bat, for 'cat' functionality
 if command -v batcat >/dev/null 2>&1; then
