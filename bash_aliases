@@ -58,6 +58,7 @@ alias mvphoto="fd -t f --changed-within 3d . $HOME/OneDrive/Scanner-Inbox/Photos
 alias notes_sync="rsync_confirm /home/verslyfr/notes/ /home/verslyfr/OneDrive/notes/"
 alias path='echo -e ${PATH//:/\\n}'
 alias qe='emacsclient -nw -a ""'
+alias reboot='systemctl reboot'
 alias st='startwin'
 alias suzy='sudo zypper'
 alias testspeed='echo "Server ID,Sponsor,Server Name,Timestamp,Distance,Ping,Download,Upload,Share,IP Address" | tee -a ~/OneDrive/testspeed_results.csv; for i in {1..300}; do echo -n "${i}",`date "+%Y-%m-%d %H%M%S"` "," | tee -a ~/OneDrive/testspeed_results.csv; speedtest --csv 2>&1| tee -a ~/OneDrive/testspeed_results.csv; sleep 900 ; done'
