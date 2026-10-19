@@ -188,3 +188,7 @@ _fzf_compgen_dir() {
 eval "$(fzf --bash)"
 _fzf_setup_completion path ag git kubectl st
 _fzf_setup_completion dir tree
+
+# * SystemD Environment Variables
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
+export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
